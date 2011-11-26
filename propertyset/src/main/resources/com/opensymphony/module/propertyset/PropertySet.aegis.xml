@@ -1,0 +1,8 @@
+<mappings>
+  <mapping>
+    <method name="getKeys">
+      <return-type componentType="java.lang.String" />
+    </method>
+    <property name="schema" ignore="true" />
+  </mapping>
+</mappings>

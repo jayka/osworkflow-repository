@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE entitymodel PUBLIC "-//OFBiz//DTD Entity Model//EN" "http://www.ofbiz.org/dtds/entitymodel.dtd">
+
+<entitymodel>
+	<title>Entity Model for OSCore</title>
+	<description>None</description>
+	<copyright></copyright>
+	<author>Pat Lightbody</author>
+	<version>1.0</version>
+
+	<!-- sequence generator table -->
+	<!-- uncomment if you don't have this defined elsewhere
+    <entity entity-name="SequenceValueItem" package-name="">
+		<field name="seqName" type="id-long-ne"></field>
+		<field name="seqId" type="numeric"></field>
+		<prim-key field="seqName" />
+	</entity>
+    -->
+
+	<!-- PropertySet implementation -->
+	<entity entity-name="OSPropertyEntry" table-name="OS_PROPERTYENTRY" package-name="">
+		<field name="id" col-name="id" type="numeric"/>
+		<field name="entityName" col-name="entityName" type="long-varchar"/>
+		<field name="entityId" col-name="entityId" type="numeric"/>
+        <field name="type" col-name="type" type="integer"/>
+		<field name="propertyKey" col-name="keyValue" type="long-varchar"/>
+		<prim-key field="id"/>
+	</entity>
+
+	<entity entity-name="OSPropertyString" table-name="OS_PROPERTYSTRING" package-name="">
+		<field name="id" col-name="id" type="numeric"/>
+		<field name="value" col-name="value" type="very-long"/>
+		<prim-key field="id"/>
+	</entity>
+
+	<entity entity-name="OSPropertyDate" table-name="OS_PROPERTYDATE" package-name="">
+		<field name="id" col-name="id" type="numeric"/>
+		<field name="value" col-name="value" type="date-time"/>
+		<prim-key field="id"/>
+	</entity>
+
+	<entity entity-name="OSPropertyData" table-name="OS_PROPERTYDATA" package-name="">
+		<field name="id" col-name="id" type="numeric"/>
+		<field name="value" col-name="value" type="blob"/>
+		<prim-key field="id"/>
+	</entity>
+
+	<entity entity-name="OSPropertyDecimal" table-name="OS_PROPERTYDECIMAL" package-name="">
+		<field name="id" col-name="id" type="numeric"/>
+		<field name="value" col-name="value" type="floating-point"/>
+		<prim-key field="id"/>
+	</entity>
+
+	<entity entity-name="OSPropertyNumber" table-name="OS_PROPERTYNUMBER" package-name="">
+		<field name="id" col-name="id" type="numeric"/>
+		<field name="value" col-name="value" type="numeric"/>
+		<prim-key field="id"/>
+	</entity>
+
+</entitymodel>

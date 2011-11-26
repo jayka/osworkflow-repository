@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE entitygroup PUBLIC "-//OFBiz//DTD Entity Group//EN" "http://www.ofbiz.org/dtds/entitygroup.dtd">
+
+<entitygroup>
+    <!-- sequence entity -->
+    <entity-group group="default" entity="SequenceValueItem"/>
+    
+    <entity-group group="default" entity="OSPropertyEntry"/>
+    <entity-group group="default" entity="OSPropertyString"/>
+    <entity-group group="default" entity="OSPropertyText"/>
+    <entity-group group="default" entity="OSPropertyData"/>
+    <entity-group group="default" entity="OSPropertyDate"/>
+    <entity-group group="default" entity="OSPropertyDecimal"/>
+    <entity-group group="default" entity="OSPropertyNumber"/>
+</entitygroup>

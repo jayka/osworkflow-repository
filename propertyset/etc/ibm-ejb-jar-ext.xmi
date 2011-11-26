@@ -1,0 +1,52 @@
+<ejbext:EJBJarExtension xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ejbext="ejbext.xmi" xmlns:ejb="ejb.xmi" xmi:id="ejb-jar_ID_Ext">
+  <ejbJar href="META-INF/ejb-jar.xml#ejb-jar_1"/>
+
+    <ejbExtensions xmi:type="ejbext:ContainerManagedEntityExtension" xmi:id="ContainerManagedEntity_1_ext">
+      <enterpriseBean xmi:type="ejb:bean" href="META-INF/ejb-jar.xml#ContainerManagedEntity_2"/>
+      <!--<structure xmi:id="PropertyDate_BeanStructure" inheritanceRoot=""/>-->
+      <beanCache xmi:id="ContainerManagedEntity_3_BeanCache" activateAt="TRANSACTION" loadAt="TRANSACTION"/>
+      <internationalization xmi:id="ContainerManagedEntity_4_BeanInternationalization" invocationLocale="CALLER"/>
+      <localTran xmi:id="ContainerManagedEntity_5_LocalTran" boundary="BEAN_METHOD" unresolvedAction="ROLLBACK"/>
+
+    </ejbExtensions>
+    <ejbExtensions xmi:type="ejbext:ContainerManagedEntityExtension" xmi:id="ContainerManagedEntity_6_ext">
+      <enterpriseBean xmi:type="ejb:bean" href="META-INF/ejb-jar.xml#ContainerManagedEntity_7"/>
+      <!--<structure xmi:id="PropertyDecimal_BeanStructure" inheritanceRoot=""/>-->
+      <beanCache xmi:id="ContainerManagedEntity_8_BeanCache" activateAt="TRANSACTION" loadAt="TRANSACTION"/>
+      <internationalization xmi:id="ContainerManagedEntity_9_BeanInternationalization" invocationLocale="CALLER"/>
+      <localTran xmi:id="ContainerManagedEntity_10_LocalTran" boundary="BEAN_METHOD" unresolvedAction="ROLLBACK"/>
+
+    </ejbExtensions>
+    <ejbExtensions xmi:type="ejbext:ContainerManagedEntityExtension" xmi:id="ContainerManagedEntity_11_ext">
+      <enterpriseBean xmi:type="ejb:bean" href="META-INF/ejb-jar.xml#ContainerManagedEntity_12"/>
+      <!--<structure xmi:id="PropertyEntry_BeanStructure" inheritanceRoot=""/>-->
+      <beanCache xmi:id="ContainerManagedEntity_13_BeanCache" activateAt="TRANSACTION" loadAt="TRANSACTION"/>
+      <internationalization xmi:id="ContainerManagedEntity_14_BeanInternationalization" invocationLocale="CALLER"/>
+      <localTran xmi:id="ContainerManagedEntity_15_LocalTran" boundary="BEAN_METHOD" unresolvedAction="ROLLBACK"/>
+
+    </ejbExtensions>
+    <ejbExtensions xmi:type="ejbext:ContainerManagedEntityExtension" xmi:id="ContainerManagedEntity_16_ext">
+      <enterpriseBean xmi:type="ejb:bean" href="META-INF/ejb-jar.xml#ContainerManagedEntity_17"/>
+      <!--<structure xmi:id="PropertyData_BeanStructure" inheritanceRoot=""/>-->
+      <beanCache xmi:id="ContainerManagedEntity_18_BeanCache" activateAt="TRANSACTION" loadAt="TRANSACTION"/>
+      <internationalization xmi:id="ContainerManagedEntity_19_BeanInternationalization" invocationLocale="CALLER"/>
+      <localTran xmi:id="ContainerManagedEntity_20_LocalTran" boundary="BEAN_METHOD" unresolvedAction="ROLLBACK"/>
+
+    </ejbExtensions>
+    <ejbExtensions xmi:type="ejbext:ContainerManagedEntityExtension" xmi:id="ContainerManagedEntity_21_ext">
+      <enterpriseBean xmi:type="ejb:bean" href="META-INF/ejb-jar.xml#ContainerManagedEntity_22"/>
+      <!--<structure xmi:id="PropertyString_BeanStructure" inheritanceRoot=""/>-->
+      <beanCache xmi:id="ContainerManagedEntity_23_BeanCache" activateAt="TRANSACTION" loadAt="TRANSACTION"/>
+      <internationalization xmi:id="ContainerManagedEntity_24_BeanInternationalization" invocationLocale="CALLER"/>
+      <localTran xmi:id="ContainerManagedEntity_25_LocalTran" boundary="BEAN_METHOD" unresolvedAction="ROLLBACK"/>
+
+    </ejbExtensions>
+    <ejbExtensions xmi:type="ejbext:ContainerManagedEntityExtension" xmi:id="ContainerManagedEntity_26_ext">
+      <enterpriseBean xmi:type="ejb:bean" href="META-INF/ejb-jar.xml#ContainerManagedEntity_27"/>
+      <!--<structure xmi:id="PropertyNumber_BeanStructure" inheritanceRoot=""/>-->
+      <beanCache xmi:id="ContainerManagedEntity_28_BeanCache" activateAt="TRANSACTION" loadAt="TRANSACTION"/>
+      <internationalization xmi:id="ContainerManagedEntity_29_BeanInternationalization" invocationLocale="CALLER"/>
+      <localTran xmi:id="ContainerManagedEntity_30_LocalTran" boundary="BEAN_METHOD" unresolvedAction="ROLLBACK"/>
+
+    </ejbExtensions>
+</ejbext:EJBJarExtension>

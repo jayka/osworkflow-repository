@@ -1,0 +1,21 @@
+<!--
+Definitions for OJBWorkflowEntry
+Put this file in the classpath and modify the repository.xml file to use this file (see OJB doc),
+this represent the mapping between OJB classes and osworkflow database on SQLServer,
+but it can be easily adapted to other database servers.
+
+Contributed by Jérôme Picard
+ -->
+
+<!-- Definitions for OJBPropertySetItem -->
+<class-descriptor class="com.opensymphony.module.propertyset.ojb.OJBPropertySetItem" table="OS_PROPERTYENTRY">
+  <field-descriptor id="1" name="globalKey" column="GLOBAL_KEY" jdbc-type="VARCHAR" primarykey="true"/>
+  <field-descriptor id="2" name="itemKey" column="ITEM_KEY" jdbc-type="VARCHAR" primarykey="true"/>
+  <field-descriptor id="3" name="itemType" column="ITEM_TYPE" jdbc-type="INTEGER"/>
+  <field-descriptor id="4" name="stringValue" column="STRING_VALUE" jdbc-type="VARCHAR"/>
+  <field-descriptor id="5" name="dateValue" column="DATE_VALUE" jdbc-type="DATE" conversion="org.apache.ojb.broker.accesslayer.conversions.JavaDate2SqlDateFieldConversion"/>
+  <field-descriptor id="6" name="doubleValue" column="FLOAT_VALUE" jdbc-type="DOUBLE"/>
+  <field-descriptor id="7" name="longValue" column="NUMBER_VALUE" jdbc-type="BIGINT"/>
+  <field-descriptor id="8" name="byteValue" column="DATA_VALUE" jdbc-type="VARBINARY"/>
+  <attribute attribute-name="cacheable" attribute-value="false"/>
+</class-descriptor>

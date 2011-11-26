@@ -1,0 +1,110 @@
+<ejbbnd:EJBJarBinding xmi:version="2.0"
+   xmlns:xmi="http://www.omg.org/XMI" xmlns:ejbbnd="ejbbnd.xmi"
+   xmlns:ejb="ejb.xmi" xmlns:commonbnd="commonbnd.xmi"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmi:id="ejb-jar_ID_Bnd">
+
+   <ejbJar href="META-INF/ejb-jar.xml#ejb-jar_1"/>
+
+      <ejbBindings
+         xmi:id="Session_bnd_1"
+         jndiName="ejb/PropertyStore">
+
+         <ejbRefBindings xmi:id="EJBRefBnd_1" jndiName="ejb/PropertyEntry">
+            <bindingEjbRef href="META-INF/ejb-jar.xml#EJBRef_1"/>
+         </ejbRefBindings>
+
+         <enterpriseBean
+            xmi:type="ejb:Session"
+            href="META-INF/ejb-jar.xml#Session_1"
+         />
+
+      </ejbBindings>
+
+      <ejbBindings
+         xmi:id="ContainerManagedEntity_bnd_1"
+         jndiName="ejb/PropertyDate">
+
+         <enterpriseBean
+            xmi:type="ejb:Entity"
+            href="META-INF/ejb-jar.xml#ContainerManagedEntity_1"
+         />
+
+      </ejbBindings>
+
+      <ejbBindings
+         xmi:id="ContainerManagedEntity_bnd_2"
+         jndiName="ejb/PropertyDecimal">
+
+         <enterpriseBean
+            xmi:type="ejb:Entity"
+            href="META-INF/ejb-jar.xml#ContainerManagedEntity_2"
+         />
+
+      </ejbBindings>
+
+      <ejbBindings
+         xmi:id="ContainerManagedEntity_bnd_3"
+         jndiName="ejb/PropertyEntry">
+
+         <ejbRefBindings xmi:id="EJBRefBnd_2" jndiName="ejb/PropertyNumber">
+            <bindingEjbRef href="META-INF/ejb-jar.xml#EJBRef_2"/>
+         </ejbRefBindings>
+         <ejbRefBindings xmi:id="EJBRefBnd_3" jndiName="ejb/PropertyDate">
+            <bindingEjbRef href="META-INF/ejb-jar.xml#EJBRef_3"/>
+         </ejbRefBindings>
+         <ejbRefBindings xmi:id="EJBRefBnd_4" jndiName="ejb/PropertyData">
+            <bindingEjbRef href="META-INF/ejb-jar.xml#EJBRef_4"/>
+         </ejbRefBindings>
+         <ejbRefBindings xmi:id="EJBRefBnd_5" jndiName="ejb/PropertyString">
+            <bindingEjbRef href="META-INF/ejb-jar.xml#EJBRef_5"/>
+         </ejbRefBindings>
+         <ejbRefBindings xmi:id="EJBRefBnd_6" jndiName="ejb/PropertyDecimal">
+            <bindingEjbRef href="META-INF/ejb-jar.xml#EJBRef_6"/>
+         </ejbRefBindings>
+
+         <ejbRefBindings xmi:id="EJBRefBnd_7" jndiName="ejb/PropertyEntry">
+            <bindingEjbRef href="META-INF/ejb-jar.xml#EJBRef_7"/>
+         </ejbRefBindings>
+
+         <enterpriseBean
+            xmi:type="ejb:Entity"
+            href="META-INF/ejb-jar.xml#ContainerManagedEntity_3"
+         />
+
+      </ejbBindings>
+
+      <ejbBindings
+         xmi:id="ContainerManagedEntity_bnd_4"
+         jndiName="ejb/PropertyData">
+
+         <enterpriseBean
+            xmi:type="ejb:Entity"
+            href="META-INF/ejb-jar.xml#ContainerManagedEntity_4"
+         />
+
+      </ejbBindings>
+
+      <ejbBindings
+         xmi:id="ContainerManagedEntity_bnd_5"
+         jndiName="ejb/PropertyString">
+
+         <enterpriseBean
+            xmi:type="ejb:Entity"
+            href="META-INF/ejb-jar.xml#ContainerManagedEntity_5"
+         />
+
+      </ejbBindings>
+
+      <ejbBindings
+         xmi:id="ContainerManagedEntity_bnd_6"
+         jndiName="ejb/PropertyNumber">
+
+         <enterpriseBean
+            xmi:type="ejb:Entity"
+            href="META-INF/ejb-jar.xml#ContainerManagedEntity_6"
+         />
+
+      </ejbBindings>
+
+</ejbbnd:EJBJarBinding>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE entitymodel PUBLIC "-//OFBiz//DTD Entity Model//EN" "http://www.ofbiz.org/dtds/entitymodel.dtd">
+
+<entitymodel>
+    <title>Entity model for PropertySet</title>
+    <description>Entity model for PropertySet</description>
+    <copyright>Copyright 2004 OpenSymphony</copyright>
+    <author>OpenSymphony</author>
+    <version>1.0</version>
+
+    <!-- sequence generator table -->
+    <entity entity-name="SequenceValueItem" package-name="">
+        <field name="seqName" type="id-long-ne"></field>
+        <field name="seqId" type="numeric"></field>
+        <prim-key field="seqName"/>
+    </entity>
+
+    <!-- PropertySet implementation -->
+    <entity entity-name="OSPropertyEntry" table-name="propertyentry" package-name="">
+        <field name="id" type="numeric"/>
+        <field name="entityName" type="long-varchar"/>
+        <field name="entityId" type="numeric"/>
+        <field name="propertyKey" type="long-varchar"/>
+        <field name="type" col-name="propertytype" type="integer"/>
+        <prim-key field="id"/>
+    </entity>
+
+    <entity entity-name="OSPropertyString" table-name="propertystring" package-name="">
+        <field name="id" type="numeric"/>
+        <field name="value" col-name="propertyvalue" type="very-long"/>
+        <prim-key field="id"/>
+    </entity>
+
+    <entity entity-name="OSPropertyText" table-name="propertytext" package-name="">
+        <field name="id" type="numeric"/>
+        <field name="value" col-name="propertyvalue" type="very-long"/>
+        <prim-key field="id"/>
+    </entity>
+
+    <entity entity-name="OSPropertyDate" table-name="propertydate" package-name="">
+        <field name="id" type="numeric"/>
+        <field name="value" col-name="propertyvalue" type="date-time"/>
+        <prim-key field="id"/>
+    </entity>
+
+    <entity entity-name="OSPropertyData" table-name="propertydata" package-name="">
+        <field name="id" type="numeric"/>
+        <field name="value" col-name="propertyvalue" type="blob"/>
+        <prim-key field="id"/>
+    </entity>
+
+    <entity entity-name="OSPropertyDecimal" table-name="propertydecimal" package-name="">
+        <field name="id" type="numeric"/>
+        <field name="value" col-name="propertyvalue" type="floating-point"/>
+        <prim-key field="id"/>
+    </entity>
+
+    <entity entity-name="OSPropertyNumber" table-name="propertynumber" package-name="">
+        <field name="id" type="numeric"/>
+        <field name="value" col-name="propertyvalue" type="numeric"/>
+        <prim-key field="id"/>
+    </entity>
+
+</entitymodel>
