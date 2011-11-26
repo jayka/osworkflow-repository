@@ -88,10 +88,10 @@
 		</plugins>
 	</build>
 	<distributionManagement>
-	   <repository>
-	       <id>local-deploy</id>
-	       <name>local-deploy</name>
-	       <url>file:../osworkflow-deploy</url>
-	   </repository>
+		<repository>
+			<id>local-deploy</id>
+			<name>local-deploy</name>
+			<url>file:../osworkflow-deploy</url>
+		</repository>
 	</distributionManagement>
 </project>
