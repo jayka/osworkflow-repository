@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE or-mapping PUBLIC '-//Pramati Technologies //DTD Pramati OR Map 3.0//EN' 'http://www.pramati.com/dtd/pramati-or-map_3_0.dtd'>
+
+<or-mapping version="3.0 SP3">
+  <ejb-jar>
+    <jar-name>oscore-2.0.jar</jar-name>
+    <ejb>
+      <exclusion-type>non-exclusive</exclusion-type>
+      <ejb-name>os.Sequence</ejb-name>
+      <datasource-name>jdbc/DefaultDS</datasource-name>
+      <table-name>os_sequence</table-name>
+      <isolation-level>repeatable-read</isolation-level>
+      <field-mapping>
+	<cmp-field>name</cmp-field>
+	<db-field>name</db-field>
+      </field-mapping>
+      <field-mapping>
+	<cmp-field>actualCount</cmp-field>
+	<db-field>value</db-field>
+      </field-mapping>
+    </ejb>
+  </ejb-jar>
+</or-mapping>
+
