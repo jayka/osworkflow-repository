@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:oxm="http://www.springframework.org/schema/oxm"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+            </props>
+        </property>
+        <!-- <property name="cacheProvider">
+            <bean class="net.sf.ehcache.hibernate.EhCacheProvider" />
+        </property> -->
+        <property name="mappingLocations">
+            <list>
+                <value>classpath:com/opensymphony/module/propertyset/hibernate3/PropertySetItemImpl.hbm.xml</value>
+                <value>classpath:com/opensymphony/workflow/spi/hibernate3/HibernateCurrentStep.hbm.xml</value>
+                <value>classpath:com/opensymphony/workflow/spi/hibernate3/HibernateHistoryStep.hbm.xml</value>
+                <value>classpath:com/opensymphony/workflow/spi/hibernate3/HibernateWorkflowEntry.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="propertySetDelegate" class="com.opensymphony.workflow.spi.hibernate3.DefaultHibernatePropertySetDelegate">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="workflowStore" class="com.opensymphony.workflow.spi.hibernate3.SpringHibernateWorkflowStore">
+        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="propertySetDelegate" ref="propertySetDelegate" />
+    </bean>
+
+    <bean id="workflowFactory" class="com.opensymphony.workflow.spi.hibernate.SpringWorkflowFactory" init-method="init">
+        <property name="resource" value="workflows.xml" />
+        <property name="reload" value="true" />
+    </bean>
+
+    <bean id="osworkflowConfiguration" class="com.opensymphony.workflow.config.SpringConfiguration">
+        <property name="store"><ref local="workflowStore"/></property>
+        <property name="factory"><ref local="workflowFactory"/></property>
+    </bean>
+
+    <bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="workflow" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="singleton" value="false" />
+        <property name="proxyInterfaces" value="com.opensymphony.workflow.Workflow" />
+        <property name="interceptorNames">
+            <list>
+                <value>transactionInterceptor</value>
+            </list>
+        </property>
+        <property name="targetName" value="workflowTarget" />
+    </bean>
+
+    <bean id="workflowTarget" class="com.opensymphony.workflow.basic.BasicWorkflow" scope="prototype">
+        <constructor-arg value="test" />
+        <property name="configuration" ref="osworkflowConfiguration" />
+    </bean>
+    
+    <context:property-placeholder location="/META-INF/config/*.properties"/>
+</beans>
