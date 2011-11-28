@@ -4,12 +4,13 @@
  */
 package com.opensymphony.workflow.util;
 
-import com.opensymphony.module.propertyset.PropertySet;
-
-import com.opensymphony.workflow.FunctionProvider;
-import com.opensymphony.workflow.WorkflowContext;
-
 import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.loader.ClassLoaderUtil;
+import com.opensymphony.workflow.util.caller.CallerInputRetriever;
+import com.opensymphony.workflow.util.caller.CallerRetriever;
 
 
 /**
@@ -22,7 +23,18 @@ public class Caller implements FunctionProvider {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void execute(Map transientVars, Map args, PropertySet ps) {
-        WorkflowContext context = (WorkflowContext) transientVars.get("context");
-        transientVars.put("caller", context.getCaller());
+
+        CallerRetriever callerRetriever = null;
+        try {
+            if(args.containsKey("caller.retriever")) {
+                String className = (String)args.get("caller.retriever");
+                Class<CallerRetriever> clazz = ClassLoaderUtil.loadClass(className.trim(), getClass());
+                callerRetriever = clazz.newInstance();
+            }
+        } catch(Exception e) { }
+        if(callerRetriever == null)
+            callerRetriever = new CallerInputRetriever();
+
+        transientVars.put("caller", callerRetriever.findCaller(transientVars, args, ps));
     }
 }

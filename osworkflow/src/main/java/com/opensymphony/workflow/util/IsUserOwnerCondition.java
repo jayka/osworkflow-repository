@@ -4,16 +4,19 @@
  */
 package com.opensymphony.workflow.util;
 
-import com.opensymphony.module.propertyset.PropertySet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
+import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.Condition;
 import com.opensymphony.workflow.StoreException;
-import com.opensymphony.workflow.WorkflowContext;
+import com.opensymphony.workflow.loader.ClassLoaderUtil;
 import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
 import com.opensymphony.workflow.spi.WorkflowStore;
-
-import java.util.*;
+import com.opensymphony.workflow.util.caller.CallerInputRetriever;
+import com.opensymphony.workflow.util.caller.CallerRetriever;
 
 
 /**
@@ -57,7 +60,19 @@ public class IsUserOwnerCondition implements Condition {
             }
         }
 
-        WorkflowContext context = (WorkflowContext) transientVars.get("context");
+
+        CallerRetriever callerRetriever = null;
+        try {
+            if(args.containsKey("caller.retriever")) {
+                String className = (String)args.get("caller.retriever");
+                Class<CallerRetriever> clazz = ClassLoaderUtil.loadClass(className.trim(), getClass());
+                callerRetriever = clazz.newInstance();
+            }
+        } catch(Exception e) { }
+        if(callerRetriever == null)
+            callerRetriever = new CallerInputRetriever();
+
+        String caller = callerRetriever.findCaller(transientVars, args, ps);
         WorkflowEntry entry = (WorkflowEntry) transientVars.get("entry");
         WorkflowStore store = (WorkflowStore) transientVars.get("store");
         List currentSteps = store.findCurrentSteps(entry.getId());
@@ -67,7 +82,7 @@ public class IsUserOwnerCondition implements Condition {
                     iterator.hasNext();) {
                 Step step = (Step) iterator.next();
 
-                if ((step.getOwner() != null) && context.getCaller().equals(step.getOwner())) {
+                if ((step.getOwner() != null) && step.getOwner().equals(caller)) {
                     return true;
                 }
             }
@@ -77,7 +92,7 @@ public class IsUserOwnerCondition implements Condition {
                 Step step = (Step) iterator.next();
 
                 if (stepId == step.getStepId()) {
-                    if ((step.getOwner() != null) && context.getCaller().equals(step.getOwner())) {
+                    if ((step.getOwner() != null) && step.getOwner().equals(caller)) {
                         return true;
                     }
                 }
