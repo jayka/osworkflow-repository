@@ -12,6 +12,8 @@
     </initial-actions>
     <steps>
         <step id="1" name="First Draft">
+            <meta name="key1">value1</meta>
+            <meta name="key2">value2</meta>
             <actions>
                 <action id="2" name="Start First Draft">
                     <restrict-to>

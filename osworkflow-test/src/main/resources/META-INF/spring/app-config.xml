@@ -71,10 +71,18 @@
         <property name="sessionFactory" ref="sessionFactory" />
         <property name="propertySetDelegate" ref="propertySetDelegate" />
     </bean>
-
+<!-- 
     <bean id="workflowFactory" class="com.opensymphony.workflow.spi.hibernate.SpringWorkflowFactory" init-method="init">
         <property name="resource" value="META-INF/workflow/workflows.xml" />
         <property name="reload" value="true" />
+    </bean>
+-->
+    <bean id="workflowFactory" class="com.opensymphony.workflow.spi.hibernate.SpringBeanNameWorkflowFactory">
+        
+    </bean>
+    
+    <bean id="example" class="com.opensymphony.workflow.spi.hibernate.SpringWorkflowDescriptorFactory">
+        <property name="descriptorResource" value="classpath:META-INF/workflow/example.xml" />
     </bean>
 
     <bean id="osworkflowConfiguration" class="com.opensymphony.workflow.config.SpringConfiguration">

@@ -12,7 +12,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
 import com.opensymphony.workflow.Workflow;
+import com.opensymphony.workflow.loader.ActionDescriptor;
+import com.opensymphony.workflow.loader.StepDescriptor;
+import com.opensymphony.workflow.loader.WorkflowDescriptor;
 import com.opensymphony.workflow.spi.Step;
+import com.opensymphony.workflow.spi.WorkflowEntry;
 
 public class TestWorkflow {
 
@@ -33,7 +37,7 @@ public class TestWorkflow {
             System.out.println("Workflow names:");
             int i = 1;
             for(String name: workflow.getWorkflowNames()) {
-                System.out.println(String.format("%02d) %s", i++, name));
+                System.out.format("%02d) %s%n", i++, name);
             }
 
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -69,20 +73,45 @@ public class TestWorkflow {
                         System.out.print("Workflow ID: ");
                         long id = Long.parseLong(in.readLine());
 
+                        String workflowName = workflow.getWorkflowName(id);
+                        WorkflowDescriptor descriptor = workflow.getWorkflowDescriptor(workflowName);
+
+                        System.out.print("Workflow state: ");
+                        switch(workflow.getEntryState(id)) {
+                        case WorkflowEntry.CREATED:
+                            System.out.println("CREATED"); break;
+                        case WorkflowEntry.ACTIVATED:
+                            System.out.println("ACTIVATED"); break;
+                        case WorkflowEntry.SUSPENDED:
+                            System.out.println("SUSPENDED"); break;
+                        case WorkflowEntry.KILLED:
+                            System.out.println("KILLED"); break;
+                        case WorkflowEntry.COMPLETED:
+                            System.out.println("COMPLETED"); break;
+                        default:
+                            System.out.println("UNKNOWN");
+                        }
+
                         List<Step> currentSteps = workflow.getCurrentSteps(id);
                         System.out.println("Current steps:");
                         int j = 0;
                         for(Step step : currentSteps) {
-                            System.out.println(String.format("%02d) %s (%s - %s)", ++j,
-                                                             step.getStepId(),
-                                                             step.getStatus(),
-                                                             step.getOwner()));
+                            ++j;
+                            StepDescriptor stepDesc = descriptor.getStep(step.getStepId());
+                            System.out.println("Meta attributes:");
+                            System.out.format("\t%s%n", stepDesc.getMetaAttributes().toString());
+                            System.out.format("%02d) %s (%s - %s)%n",
+                                                  step.getStepId(),
+                                                  stepDesc.getName(),
+                                                  step.getStatus(),
+                                                  step.getOwner());
                         }
 
                         int[] availableActions = workflow.getAvailableActions(id, inputs);
                         System.out.println("Available actions:");
                         for(j = 0; j < availableActions.length; j++) {
-                            System.out.println(String.format("%02d) %d", (j + 1), availableActions[j]));
+                            ActionDescriptor action = descriptor.getAction(availableActions[j]);
+                            System.out.println(String.format("%02d) %s", availableActions[j], action.getName()));
                         }
                     }
                     else if("exec".equals(command)) {
@@ -97,6 +126,7 @@ public class TestWorkflow {
                     e.printStackTrace();
                 }
 
+                System.out.println("-------------------------------------");
             } while(true);
 
             System.out.println("Exiting");
