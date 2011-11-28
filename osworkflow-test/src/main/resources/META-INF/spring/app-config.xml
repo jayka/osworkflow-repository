@@ -43,7 +43,27 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     
-    <bean id="propertySetDelegate" class="com.opensymphony.workflow.spi.hibernate3.DefaultHibernatePropertySetDelegate">
+    <bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="propertySetDelegate" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="singleton" value="true" />
+        <property name="proxyInterfaces" value="com.opensymphony.workflow.util.PropertySetDelegate" />
+        <property name="interceptorNames">
+            <list>
+                <value>transactionInterceptor</value>
+            </list>
+        </property>
+        <property name="targetName" value="propertySetDelegateTarget" />
+    </bean>
+    
+    <bean id="propertySetDelegateTarget" class="com.opensymphony.workflow.spi.hibernate3.DefaultHibernatePropertySetDelegate">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
@@ -62,15 +82,6 @@
         <property name="factory"><ref local="workflowFactory"/></property>
     </bean>
 
-    <bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
-        <property name="transactionManager" ref="transactionManager" />
-        <property name="transactionAttributes">
-            <props>
-                <prop key="*">PROPAGATION_REQUIRED</prop>
-            </props>
-        </property>
-    </bean>
-
     <bean id="workflow" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="singleton" value="false" />
         <property name="proxyInterfaces" value="com.opensymphony.workflow.Workflow" />
@@ -81,7 +92,7 @@
         </property>
         <property name="targetName" value="workflowTarget" />
     </bean>
-
+    
     <bean id="workflowTarget" class="com.opensymphony.workflow.basic.BasicWorkflow" scope="prototype">
         <constructor-arg value="test" />
         <property name="configuration" ref="osworkflowConfiguration" />

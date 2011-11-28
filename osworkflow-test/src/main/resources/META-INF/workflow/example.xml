@@ -47,7 +47,7 @@
                             </condition>
                             <condition type="class">
                                 <arg name="class.name">
-                                    com.opensymphony.workflow.util.AllowOwnerOnlyCondition
+                                    com.opensymphony.workflow.util.IsUserOwnerCondition
                                 </arg>
                             </condition>
                         </conditions>
@@ -67,13 +67,36 @@
                             </condition>
                             <condition type="class">
                                 <arg name="class.name">
-                                    com.opensymphony.workflow.util.AllowOwnerOnlyCondition
+                                    com.opensymphony.workflow.util.IsUserOwnerCondition
                                 </arg>
                             </condition>
                         </conditions>
                     </restrict-to>
                     <results>
                         <unconditional-result old-status="Finished" status="Queued" step="1" />
+                    </results>
+                </action>
+                <action id="5" name="Notify owner">
+                    <restrict-to>
+                        <conditions type="AND">
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.StatusCondition
+                                </arg>
+                                <arg name="status">Underway</arg>
+                            </condition>
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.RevertCondition
+                                </arg>
+                                <arg name="orig.condition">
+                                    com.opensymphony.workflow.util.IsUserOwnerCondition
+                                </arg>
+                            </condition>
+                        </conditions>
+                    </restrict-to>
+                    <results>
+                        <unconditional-result old-status="Finished" status="Underway" step="1" owner="${owner}" />
                     </results>
                 </action>
             </actions>

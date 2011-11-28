@@ -42,7 +42,7 @@ public class TestWorkflow {
             String username = in.readLine();
 
             HashMap<String, String> inputs = new HashMap<String, String>();
-            inputs.put("username", username);
+            inputs.put("caller", username);
 
             String command;
             do {
@@ -53,6 +53,11 @@ public class TestWorkflow {
                     if(command == null || "q".equals(command) || "quit".equals(command))
                         break;
 
+                    if("log".equals(command)) {
+                        System.out.print("User: ");
+                        username = in.readLine();
+                        inputs.put("caller", username);
+                    }
                     if("init".equals(command)) {
                         System.out.print("Workflow name: ");
                         String workflowName = in.readLine();
