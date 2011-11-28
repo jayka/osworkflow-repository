@@ -96,7 +96,7 @@
                         </conditions>
                     </restrict-to>
                     <results>
-                        <unconditional-result old-status="Finished" status="Underway" step="1" owner="${owner}" />
+                        <unconditional-result old-status="Finished" status="Underway" step="1" owner="${currentSteps[0].owner}" />
                     </results>
                 </action>
             </actions>
