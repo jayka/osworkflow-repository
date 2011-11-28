@@ -4,14 +4,17 @@
  */
 package com.opensymphony.workflow.util;
 
-import com.opensymphony.module.propertyset.PropertySet;
+import java.io.Serializable;
+import java.util.Map;
 
+import org.apache.commons.jexl2.Expression;
+import org.apache.commons.jexl2.JexlContext;
+import org.apache.commons.jexl2.JexlEngine;
+import org.apache.commons.jexl2.MapContext;
+
+import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.provider.BeanProvider;
 import com.opensymphony.provider.bean.DefaultBeanProvider;
-
-import java.io.Serializable;
-
-import java.util.Map;
 
 
 /**
@@ -23,6 +26,14 @@ public class DefaultVariableResolver implements VariableResolver, Serializable {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final long serialVersionUID = -4819078273560683753L;
+
+    private static JexlEngine jexl = new JexlEngine();
+
+    static {
+        jexl.setCache(512);
+        jexl.setLenient(false);
+        jexl.setSilent(false);
+     }
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
@@ -47,6 +58,14 @@ public class DefaultVariableResolver implements VariableResolver, Serializable {
         }
 
         Object o = transientVars.get(actualVar);
+
+        if(o == null) {
+            Expression expr = jexl.createExpression(var);
+            JexlContext context = new MapContext(transientVars);
+            o = expr.evaluate(context);
+            if(o != null)
+                return o;
+        }
 
         if (o == null) {
             o = ps.getAsActualType(actualVar);
