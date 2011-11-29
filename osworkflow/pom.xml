@@ -175,8 +175,8 @@
         </dependency>
         <dependency>
             <groupId>org.prevayler</groupId>
-            <artifactId>prevayler-factory</artifactId>
-            <version>2.5</version>
+            <artifactId>prevayler</artifactId>
+            <version>2.0.001-alpha</version>
             <type>jar</type>
             <scope>provided</scope>
             <optional>true</optional>

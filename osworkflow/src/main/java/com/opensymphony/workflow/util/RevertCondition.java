@@ -9,7 +9,6 @@ import com.opensymphony.workflow.WorkflowException;
 
 public class RevertCondition implements Condition {
 
-    @Override
     public boolean passesCondition(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
         String className = (String)args.get("orig.condition");
         if(className == null)
