@@ -4,24 +4,33 @@
  */
 package com.opensymphony.workflow.spi.ofbiz;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.ofbiz.core.entity.GenericDelegator;
+import org.ofbiz.core.entity.GenericEntityException;
+import org.ofbiz.core.entity.GenericValue;
+import org.ofbiz.core.util.UtilMisc;
+
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.module.propertyset.PropertySetManager;
-
 import com.opensymphony.workflow.QueryNotSupportedException;
 import com.opensymphony.workflow.StoreException;
 import com.opensymphony.workflow.query.WorkflowExpressionQuery;
 import com.opensymphony.workflow.query.WorkflowQuery;
-import com.opensymphony.workflow.spi.*;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.ofbiz.core.entity.*;
-import org.ofbiz.core.util.UtilMisc;
-
-import java.sql.Timestamp;
-
-import java.util.*;
+import com.opensymphony.workflow.spi.SimpleStep;
+import com.opensymphony.workflow.spi.SimpleWorkflowEntry;
+import com.opensymphony.workflow.spi.Step;
+import com.opensymphony.workflow.spi.WorkflowEntry;
+import com.opensymphony.workflow.spi.WorkflowStore;
 
 
 /**
@@ -296,5 +305,9 @@ public class OfbizWorkflowStore implements WorkflowStore {
 
     public List query(WorkflowQuery query) throws StoreException {
         throw new QueryNotSupportedException("Ofbiz Store does not support queries");
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+        throw new UnsupportedOperationException("Ofbiz store does not support retrieval by names and steps");
     }
 }

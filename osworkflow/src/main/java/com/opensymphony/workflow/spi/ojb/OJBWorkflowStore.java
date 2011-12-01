@@ -4,9 +4,28 @@
  */
 package com.opensymphony.workflow.spi.ojb;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.ojb.broker.PBFactoryException;
+import org.apache.ojb.broker.PersistenceBroker;
+import org.apache.ojb.broker.PersistenceBrokerFactory;
+import org.apache.ojb.broker.query.Criteria;
+import org.apache.ojb.broker.query.Query;
+import org.apache.ojb.broker.query.QueryByCriteria;
+import org.apache.ojb.broker.query.ReportQueryByCriteria;
+
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.module.propertyset.PropertySetManager;
-
 import com.opensymphony.workflow.QueryNotSupportedException;
 import com.opensymphony.workflow.StoreException;
 import com.opensymphony.workflow.query.WorkflowExpressionQuery;
@@ -14,18 +33,6 @@ import com.opensymphony.workflow.query.WorkflowQuery;
 import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
 import com.opensymphony.workflow.spi.WorkflowStore;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.apache.ojb.broker.PBFactoryException;
-import org.apache.ojb.broker.PersistenceBroker;
-import org.apache.ojb.broker.PersistenceBrokerFactory;
-import org.apache.ojb.broker.query.*;
-
-import java.math.BigDecimal;
-
-import java.util.*;
 
 
 /**
@@ -368,6 +375,10 @@ public class OJBWorkflowStore implements WorkflowStore {
         }
 
         return results;
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+        throw new UnsupportedOperationException("OJB store does not support retrieval by names and steps");
     }
 
     private PersistenceBroker getBroker() throws PBFactoryException {

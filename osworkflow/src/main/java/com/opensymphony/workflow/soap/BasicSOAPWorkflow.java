@@ -10,9 +10,16 @@
  */
 package com.opensymphony.workflow.soap;
 
-import com.opensymphony.module.propertyset.PropertySet;
+import java.util.List;
+import java.util.Map;
 
-import com.opensymphony.workflow.*;
+import javax.servlet.http.HttpServletRequest;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FactoryException;
+import com.opensymphony.workflow.StoreException;
+import com.opensymphony.workflow.Workflow;
+import com.opensymphony.workflow.WorkflowException;
 import com.opensymphony.workflow.basic.BasicWorkflow;
 import com.opensymphony.workflow.config.Configuration;
 import com.opensymphony.workflow.loader.WorkflowDescriptor;
@@ -20,11 +27,6 @@ import com.opensymphony.workflow.query.WorkflowExpressionQuery;
 import com.opensymphony.workflow.query.WorkflowQuery;
 
 import electric.util.Context;
-
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -123,6 +125,10 @@ public class BasicSOAPWorkflow implements Workflow {
 
     public boolean saveWorkflowDescriptor(String workflowName, WorkflowDescriptor descriptor, boolean replace) throws FactoryException {
         return new BasicWorkflow(getRemoteUser()).saveWorkflowDescriptor(workflowName, descriptor, replace);
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws WorkflowException {
+        return new BasicWorkflow(getRemoteUser()).getWorkflowsByNamesAndSteps(nameAndSteps);
     }
 
     protected String getRemoteUser() {

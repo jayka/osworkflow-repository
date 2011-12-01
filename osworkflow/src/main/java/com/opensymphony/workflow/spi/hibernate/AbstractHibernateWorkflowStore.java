@@ -4,8 +4,21 @@
  */
 package com.opensymphony.workflow.spi.hibernate;
 
-import com.opensymphony.module.propertyset.PropertySet;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
+import net.sf.hibernate.Criteria;
+import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Session;
+import net.sf.hibernate.expression.Criterion;
+import net.sf.hibernate.expression.Expression;
+
+import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.QueryNotSupportedException;
 import com.opensymphony.workflow.StoreException;
 import com.opensymphony.workflow.query.FieldExpression;
@@ -16,20 +29,6 @@ import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
 import com.opensymphony.workflow.spi.WorkflowStore;
 import com.opensymphony.workflow.util.PropertySetDelegate;
-
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.expression.Criterion;
-import net.sf.hibernate.expression.Expression;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -85,8 +84,8 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
         step.setDueDate(dueDate);
         step.setStatus(status);
 
-        // This is for backward compatibility, but current Store doesn't 
-        // persist this collection, nor is such property visibile outside 
+        // This is for backward compatibility, but current Store doesn't
+        // persist this collection, nor is such property visibile outside
         // OSWF internal classes
         List previousSteps = new ArrayList(previousIds.length);
 
@@ -99,7 +98,7 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
 
         entry.addCurrentSteps(step);
 
-        // We need to save here because we soon will need the stepId 
+        // We need to save here because we soon will need the stepId
         // that hibernate calculate on save or flush
         save(step);
 
@@ -117,8 +116,8 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
 
     public List findCurrentSteps(final long entryId) throws StoreException {
         // We are asking for current step list, so here we have an anti-lazy
-        // copy of the Hibernate array in memory. This also prevents problem 
-        // in case the use is going with a pattern that span a session 
+        // copy of the Hibernate array in memory. This also prevents problem
+        // in case the use is going with a pattern that span a session
         // for method call
         return new ArrayList(loadEntry(entryId).getCurrentSteps());
     }
@@ -129,8 +128,8 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
 
     public List findHistorySteps(final long entryId) throws StoreException {
         // We are asking for current step list, so here we have an anti-lazy
-        // copy of the Hibernate array in memory. This also prevents problem 
-        // in case the use is going with a pattern that span a session 
+        // copy of the Hibernate array in memory. This also prevents problem
+        // in case the use is going with a pattern that span a session
         // for method call
         return new ArrayList(loadEntry(entryId).getHistorySteps());
     }
@@ -155,7 +154,7 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
         delete(currentStep);
         entry.addHistorySteps(hStep);
 
-        // We need to save here because we soon will need the stepId 
+        // We need to save here because we soon will need the stepId
         // that hibernate calculate on save or flush
         save(hStep);
     }
@@ -254,6 +253,10 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
                     return new ArrayList(results);
                 }
             });
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+        throw new UnsupportedOperationException("Hibernate2 stores does not support retrieval by names and steps");
     }
 
     // Companion method of InternalCallback class
@@ -498,7 +501,7 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
     //~ Inner Interfaces ///////////////////////////////////////////////////////
 
     // ~ Internal Interfaces /////////////////////////////////////////////////////
-    // Template method pattern to delegate implementation of Session 
+    // Template method pattern to delegate implementation of Session
     // management to subclasses
     protected interface InternalCallback {
         public Object doInHibernate(Session session) throws HibernateException, StoreException;

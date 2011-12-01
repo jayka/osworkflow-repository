@@ -9,9 +9,16 @@
  */
 package com.opensymphony.workflow.spi.prevayler;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.module.propertyset.PropertySetManager;
-
 import com.opensymphony.workflow.StoreException;
 import com.opensymphony.workflow.query.WorkflowExpressionQuery;
 import com.opensymphony.workflow.query.WorkflowQuery;
@@ -20,15 +27,6 @@ import com.opensymphony.workflow.spi.SimpleWorkflowEntry;
 import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
 import com.opensymphony.workflow.spi.WorkflowStore;
-
-import java.io.Serializable;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -40,10 +38,10 @@ import java.util.Map;
 public class WorkflowSystem implements WorkflowStore, Serializable {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private HashMap _currentStepsCache = new HashMap();
-    private HashMap _entryCache = new HashMap();
-    private HashMap _historyStepsCache = new HashMap();
-    private HashMap _propertySetCache = new HashMap();
+    private final HashMap _currentStepsCache = new HashMap();
+    private final HashMap _entryCache = new HashMap();
+    private final HashMap _historyStepsCache = new HashMap();
+    private final HashMap _propertySetCache = new HashMap();
     private transient QueryLogic _queryLogic = new QueryLogic(this);
     private long _globalEntryId = 1;
     private long _globalStepId = 1;
@@ -218,6 +216,10 @@ public class WorkflowSystem implements WorkflowStore, Serializable {
         }
 
         return results;
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+        throw new UnsupportedOperationException("WorkflowSystem store does not support retrieval by names and steps");
     }
 
     /* (non-Javadoc)

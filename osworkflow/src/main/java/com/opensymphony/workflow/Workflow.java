@@ -4,15 +4,15 @@
  */
 package com.opensymphony.workflow;
 
-import com.opensymphony.module.propertyset.PropertySet;
+import java.util.List;
+import java.util.Map;
 
+import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.config.Configuration;
 import com.opensymphony.workflow.loader.WorkflowDescriptor;
 import com.opensymphony.workflow.query.WorkflowExpressionQuery;
 import com.opensymphony.workflow.query.WorkflowQuery;
-
-import java.util.List;
-import java.util.Map;
+import com.opensymphony.workflow.spi.WorkflowNameAndStep;
 
 
 /**
@@ -40,6 +40,7 @@ public interface Workflow {
     /**
      * @deprecated use {@link #getAvailableActions(long, Map)}  with an empty Map instead.
      */
+    @Deprecated
     public int[] getAvailableActions(long id);
 
     /**
@@ -78,6 +79,7 @@ public interface Workflow {
      * @return A List of permissions specified currently (a permission is a string name).
      * @deprecated use {@link #getSecurityPermissions(long, java.util.Map)} with a null map instead.
      */
+    @Deprecated
     public List getSecurityPermissions(long id);
 
     /**
@@ -162,12 +164,25 @@ public interface Workflow {
      * Query the workflow store for matching instances
      * @deprecated use {@link Workflow#query(WorkflowExpressionQuery)} instead.
      */
+    @Deprecated
     public List query(WorkflowQuery query) throws WorkflowException;
 
     /**
      * Query the workflow store for matching instances
      */
     public List query(WorkflowExpressionQuery query) throws WorkflowException;
+
+    /**
+     * Retieves a {@link List} of workflow entry ids filtered by
+     * name and current step id.
+     *
+     * @param nameAndSteps A {@link List} of {@link WorkflowNameAndStep}
+     * beans containing the filtering values.
+     * @return A {@link List} of workflow entry ids filtered by
+     * name and current step id.
+     * @throws WorkflowException If the query fails.
+     */
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws WorkflowException;
 
     /**
      * Get the available actions for the specified workflow instance.

@@ -68,6 +68,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
 
         try {
             _prevayler.execute(new TransactionImpl(o) {
+                    @Override
                     public void execute(WorkflowSystem store) {
                         Object[] o = (Object[]) _object;
                         long entryId = ((Long) o[0]).longValue();
@@ -95,6 +96,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
     public PropertySet getPropertySet(long entryId) throws StoreException {
         try {
             return (PropertySet) _prevayler.execute(new TransactionWithQueryImpl(new Long(entryId)) {
+                    @Override
                     public Object execute(WorkflowSystem store) throws StoreException {
                         return store.getPropertySet(((Long) _object).longValue());
                     }
@@ -115,6 +117,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
 
         try {
             return (Step) _prevayler.execute(new TransactionWithQueryImpl(oArray) {
+                    @Override
                     public Object execute(WorkflowSystem store) throws StoreException {
                         Object[] o = (Object[]) _object;
                         long entryId = ((Long) o[0]).longValue();
@@ -139,6 +142,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
     public WorkflowEntry createEntry(String workflowName) throws StoreException {
         try {
             return (WorkflowEntry) _prevayler.execute(new TransactionWithQueryImpl(workflowName) {
+                    @Override
                     public Object execute(WorkflowSystem store) throws StoreException {
                         return store.createEntry(((String) _object));
                     }
@@ -154,6 +158,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
     public List findCurrentSteps(long entryId) throws StoreException {
         try {
             return (List) _prevayler.execute(new TransactionWithQueryImpl(new Long(entryId)) {
+                    @Override
                     public Object execute(WorkflowSystem store) throws StoreException {
                         return store.findCurrentSteps(((Long) _object).longValue());
                     }
@@ -169,6 +174,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
     public WorkflowEntry findEntry(long entryId) throws StoreException {
         try {
             return (WorkflowEntry) _prevayler.execute(new TransactionWithQueryImpl(new Long(entryId)) {
+                    @Override
                     public Object execute(WorkflowSystem store) throws StoreException {
                         return store.findEntry(((Long) _object).longValue());
                     }
@@ -184,6 +190,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
     public List findHistorySteps(long entryId) throws StoreException {
         try {
             return (List) _prevayler.execute(new TransactionWithQueryImpl(new Long(entryId)) {
+                    @Override
                     public Object execute(WorkflowSystem store) throws StoreException {
                         return store.findHistorySteps(((Long) _object).longValue());
                     }
@@ -233,6 +240,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
 
         try {
             return (Step) _prevayler.execute(new TransactionWithQueryImpl(oArray) {
+                    @Override
                     public Object execute(WorkflowSystem store) throws StoreException {
                         Object[] o = (Object[]) _object;
                         Step step = (Step) o[0];
@@ -255,6 +263,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
     public void moveToHistory(Step step) throws StoreException {
         try {
             _prevayler.execute(new TransactionImpl(step) {
+                    @Override
                     public void execute(WorkflowSystem store) throws StoreException {
                         store.moveToHistory(((Step) _object));
                     }
@@ -270,6 +279,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
     public List query(WorkflowQuery query) throws StoreException {
         try {
             return (List) _prevayler.execute(new QueryImpl(query) {
+                    @Override
                     public Object execute(WorkflowSystem store) throws StoreException {
                         return store.query(((WorkflowQuery) _object));
                     }
@@ -285,6 +295,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
     public List query(WorkflowExpressionQuery query) throws StoreException {
         try {
             return (List) _prevayler.execute(new QueryImpl(query) {
+                    @Override
                     public Object execute(WorkflowSystem store) throws StoreException {
                         return store.query(((WorkflowExpressionQuery) _object));
                     }
@@ -292,6 +303,10 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
         } catch (Exception e) {
             throw new StoreException(e);
         }
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+        throw new UnsupportedOperationException("Prevayler store does not support retrieval by names and steps");
     }
 
     /**

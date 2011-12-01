@@ -4,9 +4,30 @@
  */
 package com.opensymphony.workflow.spi.jdbc;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.module.propertyset.PropertySetManager;
-
 import com.opensymphony.workflow.StoreException;
 import com.opensymphony.workflow.query.Expression;
 import com.opensymphony.workflow.query.FieldExpression;
@@ -18,19 +39,6 @@ import com.opensymphony.workflow.spi.SimpleWorkflowEntry;
 import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
 import com.opensymphony.workflow.spi.WorkflowStore;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import java.sql.*;
-
-import java.util.*;
-import java.util.Date;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
-import javax.sql.DataSource;
 
 
 /**
@@ -711,6 +719,10 @@ public class JDBCWorkflowStore implements WorkflowStore {
         }
 
         return results;
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+        throw new UnsupportedOperationException("JDBC store does not support retrieval by names and steps");
     }
 
     protected Connection getConnection() throws SQLException {

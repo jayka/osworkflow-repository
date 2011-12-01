@@ -4,24 +4,26 @@
  */
 package com.opensymphony.workflow.spi.ejb;
 
-import com.opensymphony.module.propertyset.PropertySet;
-import com.opensymphony.module.propertyset.PropertySetManager;
+import java.rmi.RemoteException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.opensymphony.workflow.StoreException;
-import com.opensymphony.workflow.query.WorkflowExpressionQuery;
-import com.opensymphony.workflow.query.WorkflowQuery;
-import com.opensymphony.workflow.spi.*;
+import javax.naming.InitialContext;
+import javax.rmi.PortableRemoteObject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.rmi.RemoteException;
-
-import java.util.*;
-
-import javax.naming.InitialContext;
-
-import javax.rmi.PortableRemoteObject;
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.module.propertyset.PropertySetManager;
+import com.opensymphony.workflow.StoreException;
+import com.opensymphony.workflow.query.WorkflowExpressionQuery;
+import com.opensymphony.workflow.query.WorkflowQuery;
+import com.opensymphony.workflow.spi.Step;
+import com.opensymphony.workflow.spi.WorkflowEntry;
+import com.opensymphony.workflow.spi.WorkflowStore;
 
 
 /**
@@ -159,4 +161,9 @@ public class EJBWorkflowStore implements WorkflowStore {
     public List query(WorkflowExpressionQuery query) throws StoreException {
         throw new UnsupportedOperationException("EJB store does not support queries");
     }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+        throw new UnsupportedOperationException("EJB store does not support retrieval by names and steps");
+    }
+
 }

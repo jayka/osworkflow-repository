@@ -4,30 +4,6 @@
  */
 package com.opensymphony.workflow.spi.hibernate;
 
-import com.opensymphony.module.propertyset.PropertySet;
-import com.opensymphony.module.propertyset.PropertySetManager;
-import com.opensymphony.module.propertyset.hibernate.DefaultHibernateConfigurationProvider;
-
-import com.opensymphony.workflow.QueryNotSupportedException;
-import com.opensymphony.workflow.StoreException;
-import com.opensymphony.workflow.query.FieldExpression;
-import com.opensymphony.workflow.query.NestedExpression;
-import com.opensymphony.workflow.query.WorkflowExpressionQuery;
-import com.opensymphony.workflow.query.WorkflowQuery;
-import com.opensymphony.workflow.spi.Step;
-import com.opensymphony.workflow.spi.WorkflowEntry;
-import com.opensymphony.workflow.spi.WorkflowStore;
-import com.opensymphony.workflow.util.PropertySetDelegate;
-
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.expression.Criterion;
-import net.sf.hibernate.expression.Expression;
-
-import org.springframework.orm.hibernate.HibernateCallback;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,6 +14,29 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import net.sf.hibernate.Criteria;
+import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Session;
+import net.sf.hibernate.expression.Criterion;
+import net.sf.hibernate.expression.Expression;
+
+import org.springframework.orm.hibernate.HibernateCallback;
+import org.springframework.orm.hibernate.support.HibernateDaoSupport;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.module.propertyset.PropertySetManager;
+import com.opensymphony.module.propertyset.hibernate.DefaultHibernateConfigurationProvider;
+import com.opensymphony.workflow.QueryNotSupportedException;
+import com.opensymphony.workflow.StoreException;
+import com.opensymphony.workflow.query.FieldExpression;
+import com.opensymphony.workflow.query.NestedExpression;
+import com.opensymphony.workflow.query.WorkflowExpressionQuery;
+import com.opensymphony.workflow.query.WorkflowQuery;
+import com.opensymphony.workflow.spi.Step;
+import com.opensymphony.workflow.spi.WorkflowEntry;
+import com.opensymphony.workflow.spi.WorkflowStore;
+import com.opensymphony.workflow.util.PropertySetDelegate;
 
 
 /**
@@ -156,7 +155,7 @@ public class SpringHibernateWorkflowStore extends HibernateDaoSupport implements
     }
 
     public void init(Map props) throws StoreException {
-        // TODO Auto-generated method stub       
+        // TODO Auto-generated method stub
     }
 
     public Step markFinished(Step step, int actionId, Date finishDate, String status, String caller) throws StoreException {
@@ -258,6 +257,10 @@ public class SpringHibernateWorkflowStore extends HibernateDaoSupport implements
         } catch (HibernateException e) {
             throw new StoreException("Error executing query " + expression, e);
         }
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+        throw new UnsupportedOperationException("Spring-Hibernate2 stores does not support retrieval by names and steps");
     }
 
     protected String getCacheRegion() {

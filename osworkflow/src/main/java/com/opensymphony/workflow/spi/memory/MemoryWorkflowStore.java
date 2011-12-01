@@ -4,12 +4,18 @@
  */
 package com.opensymphony.workflow.spi.memory;
 
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.module.propertyset.PropertySetManager;
-
 import com.opensymphony.util.DataUtil;
 import com.opensymphony.util.TextUtils;
-
 import com.opensymphony.workflow.StoreException;
 import com.opensymphony.workflow.query.Expression;
 import com.opensymphony.workflow.query.FieldExpression;
@@ -21,10 +27,6 @@ import com.opensymphony.workflow.spi.SimpleWorkflowEntry;
 import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
 import com.opensymphony.workflow.spi.WorkflowStore;
-
-import java.security.InvalidParameterException;
-
-import java.util.*;
 
 
 /**
@@ -198,6 +200,10 @@ public class MemoryWorkflowStore implements WorkflowStore {
         }
 
         return results;
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+        throw new UnsupportedOperationException("Memory store does not support retrieval by names and steps");
     }
 
     private boolean checkExpression(long entryId, FieldExpression expression) {

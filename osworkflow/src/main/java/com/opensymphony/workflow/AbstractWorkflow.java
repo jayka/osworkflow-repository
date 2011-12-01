@@ -4,21 +4,44 @@
  */
 package com.opensymphony.workflow;
 
-import com.opensymphony.module.propertyset.PropertySet;
-import com.opensymphony.module.propertyset.PropertySetManager;
-
-import com.opensymphony.workflow.config.Configuration;
-import com.opensymphony.workflow.config.DefaultConfiguration;
-import com.opensymphony.workflow.loader.*;
-import com.opensymphony.workflow.query.WorkflowExpressionQuery;
-import com.opensymphony.workflow.query.WorkflowQuery;
-import com.opensymphony.workflow.spi.*;
-import com.opensymphony.workflow.util.VariableResolver;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.*;
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.module.propertyset.PropertySetManager;
+import com.opensymphony.workflow.config.Configuration;
+import com.opensymphony.workflow.config.DefaultConfiguration;
+import com.opensymphony.workflow.loader.AbstractDescriptor;
+import com.opensymphony.workflow.loader.ActionDescriptor;
+import com.opensymphony.workflow.loader.ConditionDescriptor;
+import com.opensymphony.workflow.loader.ConditionalResultDescriptor;
+import com.opensymphony.workflow.loader.ConditionsDescriptor;
+import com.opensymphony.workflow.loader.FunctionDescriptor;
+import com.opensymphony.workflow.loader.JoinDescriptor;
+import com.opensymphony.workflow.loader.PermissionDescriptor;
+import com.opensymphony.workflow.loader.RegisterDescriptor;
+import com.opensymphony.workflow.loader.RestrictionDescriptor;
+import com.opensymphony.workflow.loader.ResultDescriptor;
+import com.opensymphony.workflow.loader.SplitDescriptor;
+import com.opensymphony.workflow.loader.StepDescriptor;
+import com.opensymphony.workflow.loader.ValidatorDescriptor;
+import com.opensymphony.workflow.loader.WorkflowDescriptor;
+import com.opensymphony.workflow.query.WorkflowExpressionQuery;
+import com.opensymphony.workflow.query.WorkflowQuery;
+import com.opensymphony.workflow.spi.Step;
+import com.opensymphony.workflow.spi.WorkflowEntry;
+import com.opensymphony.workflow.spi.WorkflowStore;
+import com.opensymphony.workflow.util.VariableResolver;
 
 
 /**
@@ -36,7 +59,7 @@ public class AbstractWorkflow implements Workflow {
 
     protected WorkflowContext context;
     private Configuration configuration;
-    private ThreadLocal stateCache = new ThreadLocal();
+    private final ThreadLocal stateCache = new ThreadLocal();
     private TypeResolver typeResolver;
 
     //~ Constructors ///////////////////////////////////////////////////////////
@@ -51,6 +74,7 @@ public class AbstractWorkflow implements Workflow {
      * @ejb.interface-method
      * @deprecated use {@link #getAvailableActions(long, Map)}  with an empty Map instead.
      */
+    @Deprecated
     public int[] getAvailableActions(long id) {
         return getAvailableActions(id, new HashMap());
     }
@@ -640,6 +664,10 @@ public class AbstractWorkflow implements Workflow {
      */
     public List query(WorkflowExpressionQuery query) throws WorkflowException {
         return getPersistence().query(query);
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws WorkflowException {
+        return getPersistence().getWorkflowsByNamesAndSteps(nameAndSteps);
     }
 
     /**

@@ -4,29 +4,30 @@
  */
 package com.opensymphony.workflow.ejb;
 
-import com.opensymphony.module.propertyset.PropertySet;
-
-import com.opensymphony.util.EJBUtils;
-
-import com.opensymphony.workflow.*;
-import com.opensymphony.workflow.config.Configuration;
-import com.opensymphony.workflow.loader.WorkflowDescriptor;
-import com.opensymphony.workflow.query.WorkflowExpressionQuery;
-import com.opensymphony.workflow.query.WorkflowQuery;
-import com.opensymphony.workflow.spi.WorkflowEntry;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.rmi.RemoteException;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import javax.ejb.CreateException;
-
 import javax.naming.NamingException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.util.EJBUtils;
+import com.opensymphony.workflow.FactoryException;
+import com.opensymphony.workflow.InvalidInputException;
+import com.opensymphony.workflow.InvalidRoleException;
+import com.opensymphony.workflow.QueryNotSupportedException;
+import com.opensymphony.workflow.Workflow;
+import com.opensymphony.workflow.WorkflowException;
+import com.opensymphony.workflow.config.Configuration;
+import com.opensymphony.workflow.loader.WorkflowDescriptor;
+import com.opensymphony.workflow.query.WorkflowExpressionQuery;
+import com.opensymphony.workflow.query.WorkflowQuery;
+import com.opensymphony.workflow.spi.WorkflowEntry;
 
 
 /**
@@ -43,7 +44,7 @@ public class EJBWorkflow implements Workflow {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private WorkflowRemote wf;
+    private final WorkflowRemote wf;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
@@ -281,6 +282,15 @@ public class EJBWorkflow implements Workflow {
         } catch (RemoteException e) {
             log.error("Error saving workflow", e);
             throw new FactoryException(e);
+        }
+    }
+
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws WorkflowException {
+        try {
+            return wf.getWorkflowsByNamesAndSteps(nameAndSteps);
+        } catch (RemoteException e) {
+            log.error("Error getting workflow by name and steps", e);
+            throw new WorkflowException(e);
         }
     }
 }

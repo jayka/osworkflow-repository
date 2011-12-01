@@ -4,13 +4,14 @@
  */
 package com.opensymphony.workflow.spi;
 
-import com.opensymphony.module.propertyset.PropertySet;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
+import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.StoreException;
 import com.opensymphony.workflow.query.WorkflowExpressionQuery;
 import com.opensymphony.workflow.query.WorkflowQuery;
-
-import java.util.*;
 
 
 /**
@@ -116,6 +117,7 @@ public interface WorkflowStore {
      * @param query the query to use
      * @return a List of workflow instance ID's
      */
+    @Deprecated
     public List query(WorkflowQuery query) throws StoreException;
 
     /**
@@ -123,4 +125,16 @@ public interface WorkflowStore {
      * @return a List of workflow instance ID's
      */
     public List query(WorkflowExpressionQuery query) throws StoreException;
+
+    /**
+     * Retieves a {@link List} of workflow entry ids filtered by
+     * name and current step id.
+     *
+     * @param nameAndSteps A {@link List} of {@link WorkflowNameAndStep}
+     * beans containing the filtering values.
+     * @return A {@link List} of workflow entry ids filtered by
+     * name and current step id.
+     * @throws StoreException If the query fails.
+     */
+    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException;
 }
