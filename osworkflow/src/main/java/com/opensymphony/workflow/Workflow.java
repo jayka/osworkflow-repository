@@ -6,6 +6,7 @@ package com.opensymphony.workflow;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.config.Configuration;
@@ -176,13 +177,13 @@ public interface Workflow {
      * Retieves a {@link List} of workflow entry ids filtered by
      * name and current step id.
      *
-     * @param nameAndSteps A {@link List} of {@link WorkflowNameAndStep}
+     * @param nameAndSteps A {@link Set} of {@link WorkflowNameAndStep}
      * beans containing the filtering values.
      * @return A {@link List} of workflow entry ids filtered by
      * name and current step id.
      * @throws WorkflowException If the query fails.
      */
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws WorkflowException;
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws WorkflowException;
 
     /**
      * Get the available actions for the specified workflow instance.

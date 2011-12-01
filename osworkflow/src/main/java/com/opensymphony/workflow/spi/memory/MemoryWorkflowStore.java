@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.module.propertyset.PropertySetManager;
@@ -202,7 +203,7 @@ public class MemoryWorkflowStore implements WorkflowStore {
         return results;
     }
 
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
         throw new UnsupportedOperationException("Memory store does not support retrieval by names and steps");
     }
 

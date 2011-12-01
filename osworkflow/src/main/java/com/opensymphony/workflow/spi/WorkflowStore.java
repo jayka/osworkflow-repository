@@ -7,6 +7,7 @@ package com.opensymphony.workflow.spi;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.StoreException;
@@ -130,11 +131,11 @@ public interface WorkflowStore {
      * Retieves a {@link List} of workflow entry ids filtered by
      * name and current step id.
      *
-     * @param nameAndSteps A {@link List} of {@link WorkflowNameAndStep}
+     * @param nameAndSteps A {@link Set} of {@link WorkflowNameAndStep}
      * beans containing the filtering values.
      * @return A {@link List} of workflow entry ids filtered by
      * name and current step id.
      * @throws StoreException If the query fails.
      */
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException;
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException;
 }

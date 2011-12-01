@@ -12,6 +12,7 @@ package com.opensymphony.workflow.soap;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -127,7 +128,7 @@ public class OfbizSOAPWorkflow implements Workflow {
         return new OfbizWorkflow(getRemoteUser()).saveWorkflowDescriptor(workflowName, descriptor, replace);
     }
 
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws WorkflowException {
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws WorkflowException {
         return new OfbizWorkflow(getRemoteUser()).getWorkflowsByNamesAndSteps(nameAndSteps);
     }
 

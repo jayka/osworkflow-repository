@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -307,7 +308,7 @@ public class OfbizWorkflowStore implements WorkflowStore {
         throw new QueryNotSupportedException("Ofbiz Store does not support queries");
     }
 
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
         throw new UnsupportedOperationException("Ofbiz store does not support retrieval by names and steps");
     }
 }

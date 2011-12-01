@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -666,7 +667,7 @@ public class AbstractWorkflow implements Workflow {
         return getPersistence().query(query);
     }
 
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws WorkflowException {
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws WorkflowException {
         return getPersistence().getWorkflowsByNamesAndSteps(nameAndSteps);
     }
 

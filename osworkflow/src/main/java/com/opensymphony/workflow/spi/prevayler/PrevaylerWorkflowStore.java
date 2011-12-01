@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.prevayler.Prevayler;
 import org.prevayler.PrevaylerFactory;
@@ -305,7 +306,7 @@ public class PrevaylerWorkflowStore implements WorkflowStore, Serializable {
         }
     }
 
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
         throw new UnsupportedOperationException("Prevayler store does not support retrieval by names and steps");
     }
 

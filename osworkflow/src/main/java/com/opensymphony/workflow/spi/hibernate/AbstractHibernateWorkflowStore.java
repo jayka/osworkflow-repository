@@ -255,7 +255,7 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
             });
     }
 
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
         throw new UnsupportedOperationException("Hibernate2 stores does not support retrieval by names and steps");
     }
 

@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.CreateException;
 import javax.naming.NamingException;
@@ -285,7 +286,7 @@ public class EJBWorkflow implements Workflow {
         }
     }
 
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws WorkflowException {
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws WorkflowException {
         try {
             return wf.getWorkflowsByNamesAndSteps(nameAndSteps);
         } catch (RemoteException e) {

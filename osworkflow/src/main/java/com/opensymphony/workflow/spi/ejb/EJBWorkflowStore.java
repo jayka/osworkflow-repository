@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.naming.InitialContext;
 import javax.rmi.PortableRemoteObject;
@@ -162,7 +163,7 @@ public class EJBWorkflowStore implements WorkflowStore {
         throw new UnsupportedOperationException("EJB store does not support queries");
     }
 
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
         throw new UnsupportedOperationException("EJB store does not support retrieval by names and steps");
     }
 

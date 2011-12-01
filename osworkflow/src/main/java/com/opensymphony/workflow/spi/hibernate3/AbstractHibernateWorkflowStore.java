@@ -510,7 +510,7 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
         public Object doInHibernate(Session session) throws HibernateException, StoreException;
     }
 
-    public List getWorkflowsByNamesAndSteps(final List nameAndSteps) throws StoreException {
+    public List getWorkflowsByNamesAndSteps(final Set nameAndSteps) throws StoreException {
         if(nameAndSteps.isEmpty())
             return new LinkedList();
 

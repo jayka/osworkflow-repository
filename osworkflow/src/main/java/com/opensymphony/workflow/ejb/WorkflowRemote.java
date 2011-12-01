@@ -83,5 +83,5 @@ public interface WorkflowRemote extends javax.ejb.EJBObject {
 
     public boolean saveWorkflowDescriptor(java.lang.String workflowName, com.opensymphony.workflow.loader.WorkflowDescriptor descriptor, boolean replace) throws com.opensymphony.workflow.FactoryException, java.rmi.RemoteException;
 
-    public java.util.List getWorkflowsByNamesAndSteps(java.util.List nameAndSteps) throws com.opensymphony.workflow.StoreException, java.rmi.RemoteException;
+    public java.util.List getWorkflowsByNamesAndSteps(java.util.Set nameAndSteps) throws com.opensymphony.workflow.StoreException, java.rmi.RemoteException;
 }

@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -721,7 +722,7 @@ public class JDBCWorkflowStore implements WorkflowStore {
         return results;
     }
 
-    public List getWorkflowsByNamesAndSteps(List nameAndSteps) throws StoreException {
+    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
         throw new UnsupportedOperationException("JDBC store does not support retrieval by names and steps");
     }
 
