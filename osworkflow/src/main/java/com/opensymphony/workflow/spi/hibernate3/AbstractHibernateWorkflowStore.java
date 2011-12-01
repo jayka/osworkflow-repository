@@ -518,7 +518,7 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
 
             public Object doInHibernate(Session session) throws HibernateException, StoreException {
                 StringBuilder queryStr = new StringBuilder();
-                queryStr.append("SELECT entry.id ").
+                queryStr.append("SELECT DISTINCT entry.id ").
                          append("FROM HibernateWorkflowEntry AS entry INNER JOIN entry.currentSteps AS step ").
                          append("WHERE ");
                 for(int i = 0, l = nameAndSteps.size(); i < l; i++) {
@@ -526,6 +526,7 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
                         queryStr.append(" OR ");
                     queryStr.append(String.format("(entry.workflowName = :workflowName%d AND step.stepId = :stepId%d)", i, i));
                 }
+                queryStr.append(" ORDER BY entry.id");
 
                 Query query = session.createQuery(queryStr.toString());
                 int i = 0;

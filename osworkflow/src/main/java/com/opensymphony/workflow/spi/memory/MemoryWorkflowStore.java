@@ -6,10 +6,11 @@ package com.opensymphony.workflow.spi.memory;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -206,7 +207,7 @@ public class MemoryWorkflowStore implements WorkflowStore {
     }
 
     public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
-        List workflowIds = new LinkedList();
+        List workflowIds = new ArrayList();
         Set<Map.Entry> entryCacheEntryset = entryCache.entrySet();
         CachableWorkflowNameAndStep nas = new CachableWorkflowNameAndStep(0, null);
         for(Map.Entry entry : entryCacheEntryset) {
@@ -220,6 +221,11 @@ public class MemoryWorkflowStore implements WorkflowStore {
                     workflowIds.add(entry.getKey());
             }
         }
+        Collections.sort(workflowIds, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Long)o1).compareTo((Long)o2);
+            }
+        });
         return workflowIds;
     }
 

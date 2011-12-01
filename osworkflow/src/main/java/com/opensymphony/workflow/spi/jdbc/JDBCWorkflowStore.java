@@ -39,6 +39,7 @@ import com.opensymphony.workflow.spi.SimpleStep;
 import com.opensymphony.workflow.spi.SimpleWorkflowEntry;
 import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
+import com.opensymphony.workflow.spi.WorkflowNameAndStep;
 import com.opensymphony.workflow.spi.WorkflowStore;
 
 
@@ -723,7 +724,54 @@ public class JDBCWorkflowStore implements WorkflowStore {
     }
 
     public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
-        throw new UnsupportedOperationException("JDBC store does not support retrieval by names and steps");
+        LinkedList workflowIds = new LinkedList();
+        if(nameAndSteps.isEmpty())
+            return workflowIds;
+
+        StringBuilder queryStr = new StringBuilder();
+        queryStr.append(String.format("SELECT DISTINCT entry.%s ", entryId)).
+                 append(String.format("FROM %s AS entry LEFT JOIN %s AS step ON entry.%s = step.%s ", entryTable, currentTable, entryId, stepEntryId)).
+                 append(String.format("WHERE "));
+
+        for(int i = 0, l = nameAndSteps.size(); i < l; i++) {
+            if(i != 0)
+                queryStr.append(" OR ");
+            queryStr.append(String.format("(entry.%s = ? AND step.%s = ?)", entryName, i));
+        }
+        queryStr.append(String.format(" ORDER BY entry.%s", entryId));
+
+        if(log.isDebugEnabled()) {
+            log.debug(queryStr.toString());
+        }
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(queryStr.toString());
+
+            int i = 1;
+            for(Iterator it = nameAndSteps.iterator(); it.hasNext();) {
+                WorkflowNameAndStep stepInfo = (WorkflowNameAndStep)it.next();
+                stmt.setString(i++, stepInfo.getWorkflowName());
+                stmt.setInt(i++, stepInfo.getStepId());
+            }
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                workflowIds.add(rs.getLong(1));
+            }
+
+        } catch (SQLException ex) {
+            throw new StoreException("SQL Exception in query: " + ex.getMessage());
+        } finally {
+            cleanup(conn, stmt, rs);
+        }
+
+        return workflowIds;
     }
 
     protected Connection getConnection() throws SQLException {
