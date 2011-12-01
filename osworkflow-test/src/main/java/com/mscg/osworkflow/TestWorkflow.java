@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -125,7 +126,7 @@ public class TestWorkflow {
                         workflow.doAction(id, actionId, inputs);
                     }
                     else if("query".equals(command)) {
-                        List<WorkflowNameAndStep> stepInfos = new LinkedList<WorkflowNameAndStep>();
+                        Set<WorkflowNameAndStep> stepInfos = new LinkedHashSet<WorkflowNameAndStep>();
                         stepInfos.add(new WorkflowNameAndStep(1, "example"));
                         stepInfos.add(new WorkflowNameAndStep(2, "sp3-moderation"));
                         List ids = workflow.getWorkflowsByNamesAndSteps(stepInfos);
