@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE workflow PUBLIC
+        "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN"
+        "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
+<workflow>
+    <initial-actions>
+        <action id="1" name="Start Workflow">
+            <results>
+                <unconditional-result old-status="Finished" status="Queued" step="1"/>
+            </results>
+        </action>
+    </initial-actions>
+    <steps>
+        <step id="1" name="First Draft">
+            <meta name="key1">value1</meta>
+            <meta name="key2">value2</meta>
+            <actions>
+                <action id="2" name="Start First Draft">
+                    <restrict-to>
+                        <conditions>
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.StatusCondition
+                                </arg>
+                                <arg name="status">Queued</arg>
+                            </condition>
+                        </conditions>
+                    </restrict-to>
+                    <pre-functions>
+                        <function type="class">
+                            <arg name="class.name">
+                                com.opensymphony.workflow.util.Caller
+                            </arg>
+                        </function>
+                    </pre-functions>
+                    <results>
+                        <unconditional-result old-status="Finished" status="Underway"
+                                              step="1" owner="${caller}"/>
+                    </results>
+                </action>
+                <action id="3" name="Finish First Draft">
+                    <restrict-to>
+                        <conditions type="AND">
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.StatusCondition
+                                </arg>
+                                <arg name="status">Underway</arg>
+                            </condition>
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.IsUserOwnerCondition
+                                </arg>
+                            </condition>
+                        </conditions>
+                    </restrict-to>
+                    <results>
+                        <unconditional-result old-status="Finished" status="Queued" step="2" />
+                    </results>
+                </action>
+                <action id="4" name="Requeue Draft">
+                    <restrict-to>
+                        <conditions type="AND">
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.StatusCondition
+                                </arg>
+                                <arg name="status">Underway</arg>
+                            </condition>
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.IsUserOwnerCondition
+                                </arg>
+                            </condition>
+                        </conditions>
+                    </restrict-to>
+                    <results>
+                        <unconditional-result old-status="Finished" status="Queued" step="1" />
+                    </results>
+                </action>
+                <action id="5" name="Notify owner">
+                    <restrict-to>
+                        <conditions type="AND">
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.StatusCondition
+                                </arg>
+                                <arg name="status">Underway</arg>
+                            </condition>
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.RevertCondition
+                                </arg>
+                                <arg name="orig.condition">
+                                    com.opensymphony.workflow.util.IsUserOwnerCondition
+                                </arg>
+                            </condition>
+                        </conditions>
+                    </restrict-to>
+                    <results>
+                        <unconditional-result old-status="Finished" status="Underway" step="1" owner="${currentSteps[0].owner}" />
+                    </results>
+                </action>
+            </actions>
+        </step>
+        <step id="2" name="Validation">
+            <actions>
+                <action id="6" name="Start Validation">
+                    <restrict-to>
+                        <conditions>
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.StatusCondition
+                                </arg>
+                                <arg name="status">Queued</arg>
+                            </condition>
+                        </conditions>
+                    </restrict-to>
+                    <pre-functions>
+                        <function type="class">
+                            <arg name="class.name">
+                                com.opensymphony.workflow.util.Caller
+                            </arg>
+                        </function>
+                    </pre-functions>
+                    <results>
+                        <unconditional-result old-status="Finished" status="Underway"
+                                              step="2" owner="${caller}"/>
+                    </results>
+                </action>
+                <action id="7" name="Finish Validation">
+                    <restrict-to>
+                        <conditions type="AND">
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.StatusCondition
+                                </arg>
+                                <arg name="status">Underway</arg>
+                            </condition>
+                            <condition type="class">
+                                <arg name="class.name">
+                                    com.opensymphony.workflow.util.IsUserOwnerCondition
+                                </arg>
+                            </condition>
+                        </conditions>
+                    </restrict-to>
+                    <results>
+                        <unconditional-result old-status="Finished" status="Queued" step="3" />
+                    </results>
+                </action>
+            </actions>
+        </step>
+        <step id="3" name="finished"/>
+    </steps>
+</workflow>

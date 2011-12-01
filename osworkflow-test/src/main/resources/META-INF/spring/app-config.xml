@@ -84,6 +84,10 @@
     <bean id="example" class="com.opensymphony.workflow.spi.hibernate.SpringWorkflowDescriptorFactory">
         <property name="descriptorResource" value="classpath:META-INF/workflow/example.xml" />
     </bean>
+    
+    <bean id="sp3-moderation" class="com.opensymphony.workflow.spi.hibernate.SpringWorkflowDescriptorFactory">
+        <property name="descriptorResource" value="classpath:META-INF/workflow/sp3-moderation.xml" />
+    </bean>
 
     <bean id="osworkflowConfiguration" class="com.opensymphony.workflow.config.SpringConfiguration">
         <property name="store"><ref local="workflowStore"/></property>

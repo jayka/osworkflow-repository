@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -17,6 +18,7 @@ import com.opensymphony.workflow.loader.StepDescriptor;
 import com.opensymphony.workflow.loader.WorkflowDescriptor;
 import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
+import com.opensymphony.workflow.spi.WorkflowNameAndStep;
 
 public class TestWorkflow {
 
@@ -121,6 +123,13 @@ public class TestWorkflow {
                         int actionId = Integer.parseInt(in.readLine());
 
                         workflow.doAction(id, actionId, inputs);
+                    }
+                    else if("query".equals(command)) {
+                        List<WorkflowNameAndStep> stepInfos = new LinkedList<WorkflowNameAndStep>();
+                        stepInfos.add(new WorkflowNameAndStep(1, "example"));
+                        stepInfos.add(new WorkflowNameAndStep(2, "sp3-moderation"));
+                        List ids = workflow.getWorkflowsByNamesAndSteps(stepInfos);
+                        System.out.println("Found ids are: " + ids);
                     }
                 } catch(Exception e) {
                     e.printStackTrace();
