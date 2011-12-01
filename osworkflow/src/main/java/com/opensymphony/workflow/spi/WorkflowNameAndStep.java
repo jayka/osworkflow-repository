@@ -2,8 +2,8 @@ package com.opensymphony.workflow.spi;
 
 public class WorkflowNameAndStep {
 
-    private final String workflowName;
-    private final int stepId;
+    protected String workflowName;
+    protected int stepId;
 
     public WorkflowNameAndStep(int stepId, String workflowName) {
         this.stepId = stepId;

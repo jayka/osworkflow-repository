@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +28,7 @@ import com.opensymphony.workflow.spi.SimpleStep;
 import com.opensymphony.workflow.spi.SimpleWorkflowEntry;
 import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
+import com.opensymphony.workflow.spi.WorkflowNameAndStep;
 import com.opensymphony.workflow.spi.WorkflowStore;
 
 
@@ -204,7 +206,21 @@ public class MemoryWorkflowStore implements WorkflowStore {
     }
 
     public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
-        throw new UnsupportedOperationException("Memory store does not support retrieval by names and steps");
+        List workflowIds = new LinkedList();
+        Set<Map.Entry> entryCacheEntryset = entryCache.entrySet();
+        CachableWorkflowNameAndStep nas = new CachableWorkflowNameAndStep(0, null);
+        for(Map.Entry entry : entryCacheEntryset) {
+            List currentSteps = (List) currentStepsCache.get(entry.getKey());
+            WorkflowEntry workflow = (WorkflowEntry) entry.getValue();
+            for(Iterator it = currentSteps.iterator(); it.hasNext();) {
+                Step step = (Step)it.next();
+                nas.setStepId(step.getStepId());
+                nas.setWorkflowName(workflow.getWorkflowName());
+                if(nameAndSteps.contains(nas))
+                    workflowIds.add(entry.getKey());
+            }
+        }
+        return workflowIds;
     }
 
     private boolean checkExpression(long entryId, FieldExpression expression) {
@@ -974,5 +990,20 @@ public class MemoryWorkflowStore implements WorkflowStore {
         }
 
         return false;
+    }
+
+    private static class CachableWorkflowNameAndStep extends WorkflowNameAndStep {
+
+        public CachableWorkflowNameAndStep(int stepId, String workflowName) {
+            super(stepId, workflowName);
+        }
+
+        public void setStepId(int stepId) {
+            this.stepId = stepId;
+        }
+
+        public void setWorkflowName(String workflowName) {
+            this.workflowName = workflowName;
+        }
     }
 }
