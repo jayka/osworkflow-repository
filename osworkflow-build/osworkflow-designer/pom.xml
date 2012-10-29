@@ -1,11 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>opensymphony</groupId>
-  <artifactId>osworkflow-designer</artifactId>
-  <version>1.0.0</version>
-  <name>osworkflow-designer</name>
-  <description>OSWorkflow graphical designer</description>
-  <repositories>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>opensymphony</groupId>
+        <artifactId>osworkflow-build</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>opensymphony</groupId>
+    <artifactId>osworkflow-designer</artifactId>
+    <version>1.0.0</version>
+    <name>osworkflow-designer</name>
+    <description>OSWorkflow graphical designer</description>
+    <repositories>
         <repository>
             <id>OpenSymphony mirror repository</id>
             <name>OpenSymphony mirror repository</name>
@@ -24,15 +30,6 @@
     </repositories>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -75,7 +72,8 @@
         </plugins>
         <pluginManagement>
             <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <!--This plugin's configuration is used to store Eclipse 
+                    m2e settings only. It has no influence on the Maven build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -110,45 +108,45 @@
         </pluginManagement>
     </build>
     <dependencies>
-    	<dependency>
-    		<groupId>opensymphony</groupId>
-    		<artifactId>osworkflow</artifactId>
-    		<version>2.8.0</version>
-    		<type>jar</type>
-    		<scope>compile</scope>
-    	</dependency>
-    	<dependency>
-    		<groupId>jgoodies</groupId>
-    		<artifactId>looks</artifactId>
-    		<version>1.2.2</version>
-    		<type>jar</type>
-    		<scope>compile</scope>
-    	</dependency>
-    	<dependency>
-    		<groupId>com.jgoodies</groupId>
-    		<artifactId>forms</artifactId>
-    		<version>1.2.1</version>
-    		<type>jar</type>
-    		<scope>compile</scope>
-    	</dependency>
-    	<dependency>
-    		<groupId>jgraph</groupId>
-    		<artifactId>jgraph</artifactId>
-    		<version>5.0.0</version>
-    		<type>jar</type>
-    		<scope>compile</scope>
-    	</dependency>
-    	<dependency>
-    		<groupId>foxtrot</groupId>
-    		<artifactId>foxtrot</artifactId>
-    		<version>2.0</version>
-    		<type>jar</type>
-    		<scope>compile</scope>
-    	</dependency>
-    	<dependency>
-    		<groupId>com.ostermiller</groupId>
-    		<artifactId>syntax</artifactId>
-    		<version>1.0.0</version>
-    	</dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>osworkflow</artifactId>
+            <version>2.8.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>jgoodies</groupId>
+            <artifactId>looks</artifactId>
+            <version>1.2.2</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jgoodies</groupId>
+            <artifactId>forms</artifactId>
+            <version>1.2.1</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>jgraph</groupId>
+            <artifactId>jgraph</artifactId>
+            <version>5.0.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>foxtrot</groupId>
+            <artifactId>foxtrot</artifactId>
+            <version>2.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ostermiller</groupId>
+            <artifactId>syntax</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>
