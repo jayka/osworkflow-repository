@@ -6,9 +6,7 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>opensymphony</groupId>
     <artifactId>osworkflow-designer</artifactId>
-    <version>1.0.0</version>
     <name>osworkflow-designer</name>
     <description>OSWorkflow graphical designer</description>
     <repositories>
