@@ -5,7 +5,7 @@
   <version>1.0.0</version>
   <packaging>pom</packaging>
   <modules>
-      <module>../oscore</module>
+      <module>oscore</module>
       <module>../osworkflow</module>
       <module>../osworkflow-designer</module>
       <module>../osworkflow-test</module>
