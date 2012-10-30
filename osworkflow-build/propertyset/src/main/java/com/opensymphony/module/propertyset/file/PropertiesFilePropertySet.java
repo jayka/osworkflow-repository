@@ -4,22 +4,29 @@
  */
 package com.opensymphony.module.propertyset.file;
 
-import com.opensymphony.module.propertyset.memory.MemoryPropertySet;
-
-import com.opensymphony.util.Data;
-import com.opensymphony.util.XMLUtils;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.w3c.dom.Document;
-
-import java.io.*;
-
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
 
-import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+
+import com.opensymphony.module.propertyset.memory.MemoryPropertySet;
+import com.opensymphony.util.Data;
+import com.opensymphony.util.XMLUtils;
 
 
 /**
@@ -63,7 +70,7 @@ public class PropertiesFilePropertySet extends MemoryPropertySet {
                 os.writeObject(valueEntry.getValue());
 
                 byte[] data = bos.toByteArray();
-                value = new sun.misc.BASE64Encoder().encode(data);
+                value = new String(Base64.encodeBase64(data));
 
                 break;
 
@@ -75,9 +82,9 @@ public class PropertiesFilePropertySet extends MemoryPropertySet {
             case DATA:
 
                 if (valueEntry.getValue() instanceof byte[]) {
-                    value = new sun.misc.BASE64Encoder().encode((byte[]) valueEntry.getValue());
+                    value = new String(Base64.encodeBase64((byte[]) valueEntry.getValue()));
                 } else {
-                    value = new sun.misc.BASE64Encoder().encode(((Data) valueEntry.getValue()).getBytes());
+                    value = new String(Base64.encodeBase64(((Data) valueEntry.getValue()).getBytes()));
                 }
 
                 break;
@@ -92,6 +99,7 @@ public class PropertiesFilePropertySet extends MemoryPropertySet {
         p.store(new FileOutputStream(file), null);
     }
 
+    @Override
     public void init(Map config, Map args) {
         super.init(config, args);
         file = new File((String) args.get("file"));
@@ -153,7 +161,7 @@ public class PropertiesFilePropertySet extends MemoryPropertySet {
                 break;
 
             case DATA:
-                value = new sun.misc.BASE64Decoder().decodeBuffer(data);
+                value = Base64.decodeBase64(data.getBytes());
 
                 break;
 
@@ -170,7 +178,7 @@ public class PropertiesFilePropertySet extends MemoryPropertySet {
             case PROPERTIES:
             case OBJECT:
 
-                byte[] bytes = new sun.misc.BASE64Decoder().decodeBuffer(data);
+                byte[] bytes = Base64.decodeBase64(data.getBytes());
                 ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
                 ObjectInputStream is = new ObjectInputStream(bis);
                 value = is.readObject();
