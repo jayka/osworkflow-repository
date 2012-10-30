@@ -136,6 +136,9 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Export-Package>com.opensymphony.*;version=${project.version}</Export-Package>
+                        <Import-Package>org.hibernate.*;resolution:=optional,net.sf.hibernate.*;resolution:=optional,javax.ejb;resolution:=optional,
+                                        org.ofbiz.*;resolution:=optional,org.apache.ojb.*;resolution:=optional,javax.persistence.*;resolution:=optional,*</Import-Package>
                     </instructions>
                 </configuration>
             </plugin>

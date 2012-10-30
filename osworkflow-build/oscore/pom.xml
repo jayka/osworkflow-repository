@@ -83,6 +83,8 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Export-Package>ognl;version=2.6.11,com.opensymphony.*;version=${project.version}</Export-Package>
+                        <Import-Package>javax.ejb;resolution:=optional,*</Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
