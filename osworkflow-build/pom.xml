@@ -11,6 +11,7 @@
       <module>osworkflow-test</module>
       <module>osworkflow-webapp</module>
       <module>propertyset</module>
+      <module>osworkflow.osgi</module>
   </modules>
   <build>
         <plugins>
