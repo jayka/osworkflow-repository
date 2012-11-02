@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>osworkflow.osgi</artifactId>
+        <groupId>opensymphony</groupId>
+        <version>1.0.0</version>
+        <relativePath>..</relativePath>
+    </parent>
+    <artifactId>osworkflow-datasource.osgi</artifactId>
+    <name>OSWorkflow persistence datasource</name>
+    <description>OSWorkflow persistence datasource</description>
+    <packaging>bundle</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <version>2.0.1</version>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Import-Package>com.mysql.jdbc,com.mysql.jdbc.configs,com.mysql.jdbc.exceptions,com.mysql.jdbc.exceptions.jdbc4,com.mysql.jdbc.integration.c3p0,
+                                        com.mysql.jdbc.integration.jboss,com.mysql.jdbc.interceptors,com.mysql.jdbc.jdbc2.optional,com.mysql.jdbc.log,com.mysql.jdbc.profiler,
+                                        com.mysql.jdbc.util,org.gjt.mm.mysql,
+                                        org.apache.commons.dbcp,org.apache.commons.dbcp.cpdsadapter,org.apache.commons.dbcp.datasources,org.apache.commons.dbcp.managed,
+                                        org.apache.commons.jocl,
+                                        *</Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.21</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

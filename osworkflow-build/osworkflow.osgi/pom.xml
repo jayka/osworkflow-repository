@@ -22,5 +22,6 @@
         
     <modules>
         <module>osworkflow-factory.osgi</module>
+        <module>osworkflow-datasource.osgi</module>
     </modules>
 </project>
