@@ -10,7 +10,7 @@ create table OS_PROPERTYENTRY
 	FLOAT_VALUE float,
 	NUMBER_VALUE numeric,
 	primary key (GLOBAL_KEY, ITEM_KEY)
-)TYPE=InnoDB;
+)Engine=InnoDB;
 
 -- Beginning of Default OSUser tables
 drop table if exists OS_USER cascade;
@@ -20,7 +20,7 @@ create table OS_USER
     PASSWORDHASH mediumtext,
     primary key (USERNAME),
     index(USERNAME)
-)TYPE=InnoDB;
+)Engine=InnoDB;
 
 
 drop table if exists OS_GROUP cascade;
@@ -28,7 +28,7 @@ create table OS_GROUP
 (
     GROUPNAME varchar(20) NOT NULL,
     primary key (GROUPNAME)
-)TYPE=InnoDB;
+)Engine=InnoDB;
 
 drop table if exists OS_MEMBERSHIP cascade;
 create table OS_MEMBERSHIP
@@ -40,7 +40,7 @@ create table OS_MEMBERSHIP
     foreign key (USERNAME) references OS_USER(USERNAME),
     index (GROUPNAME),
     foreign key (GROUPNAME) references OS_GROUP(GROUPNAME)
-)TYPE=InnoDB;
+)Engine=InnoDB;
 
 -- End of Default OSUser tables
 
@@ -53,7 +53,7 @@ create table OS_WFENTRY
     NAME varchar(60),
     STATE integer,
     primary key (ID)
-)TYPE=InnoDB;
+)Engine=InnoDB;
 
 
 drop table if exists OS_CURRENTSTEP;
@@ -77,7 +77,7 @@ create table OS_CURRENTSTEP
     foreign key (OWNER) references OS_USER(USERNAME),
     index (CALLER),
     foreign key (CALLER) references OS_USER(USERNAME)
-)TYPE=InnoDB;
+)Engine=InnoDB;
 
 drop table if exists OS_HISTORYSTEP;
 create table OS_HISTORYSTEP
@@ -100,7 +100,7 @@ create table OS_HISTORYSTEP
     foreign key (OWNER) references OS_USER(USERNAME),
     index (CALLER),
     foreign key (CALLER) references OS_USER(USERNAME)
-)TYPE=InnoDB;
+)Engine=InnoDB;
 
 drop table if exists OS_CURRENTSTEP_PREV;
 create table OS_CURRENTSTEP_PREV
@@ -112,7 +112,7 @@ create table OS_CURRENTSTEP_PREV
     foreign key (ID) references OS_CURRENTSTEP(ID),
     index (PREVIOUS_ID),
     foreign key (PREVIOUS_ID) references OS_HISTORYSTEP(ID)
-)TYPE=InnoDB;
+)Engine=InnoDB;
 
 drop table if exists OS_HISTORYSTEP_PREV;
 create table OS_HISTORYSTEP_PREV
@@ -124,18 +124,18 @@ create table OS_HISTORYSTEP_PREV
     foreign key (ID) references OS_HISTORYSTEP(ID),
     index (PREVIOUS_ID),
     foreign key (PREVIOUS_ID) references OS_HISTORYSTEP(ID)
-)TYPE=InnoDB;
+)Engine=InnoDB;
 
 drop table if exists OS_STEPIDS;
 CREATE TABLE OS_STEPIDS
 (
 	 ID bigint NOT NULL AUTO_INCREMENT,
 	 PRIMARY KEY (id)
- )TYPE=InnoDB;
+ )Engine=InnoDB;
 
 drop table if exists OS_ENTRYIDS;
 CREATE TABLE OS_ENTRYIDS
 (
 	 ID bigint NOT NULL AUTO_INCREMENT,
 	 PRIMARY KEY (id)
- )TYPE=InnoDB;
+ )Engine=InnoDB;
