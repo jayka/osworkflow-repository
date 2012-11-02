@@ -8,7 +8,7 @@
     </parent>
     <artifactId>osworkflow-factory.osgi</artifactId>
     <name>Osworkflow factory OSGi adapter</name>
-    <description>OSGi adapters for OSWorkflow facotry</description>
+    <description>OSGi adapters for OSWorkflow factory</description>
     <packaging>bundle</packaging>
     <build>
         <plugins>
