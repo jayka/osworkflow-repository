@@ -17,10 +17,37 @@
         <property name="username" value="osworkflow" />
         <property name="password" value="osworkflow" />
     </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+            </props>
+        </property>
+        <!-- <property name="cacheProvider"> <bean class="net.sf.ehcache.hibernate.EhCacheProvider" /> </property> -->
+        <property name="mappingLocations">
+            <list>
+                <value>classpath:com/opensymphony/module/propertyset/hibernate3/PropertySetItemImpl.hbm.xml</value>
+                <value>classpath:com/opensymphony/workflow/spi/hibernate3/HibernateCurrentStep.hbm.xml</value>
+                <value>classpath:com/opensymphony/workflow/spi/hibernate3/HibernateHistoryStep.hbm.xml</value>
+                <value>classpath:com/opensymphony/workflow/spi/hibernate3/HibernateWorkflowEntry.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
 
     <osgi:service interface="javax.sql.DataSource" ref="dataSource">
         <osgi:service-properties>
             <entry key="osworkflow.datasource" value="true" />
+        </osgi:service-properties>
+    </osgi:service>
+    
+    <osgi:service interface="org.hibernate.SessionFactory" ref="sessionFactory">
+        <osgi:service-properties>
+            <entry key="osworkflow.sessionFactory" value="true" />
         </osgi:service-properties>
     </osgi:service>
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:osgi="http://www.springframework.org/schema/osgi"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+    <osgi:reference id="sessionFactory"
+                    interface="org.hibernate.SessionFactory"
+                    filter="(osworkflow.sessionFactory=true)" />
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <bean id="propertySetDelegate" class="com.opensymphony.workflow.spi.hibernate3.DefaultHibernatePropertySetDelegate">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="workflowStore" class="com.opensymphony.workflow.spi.hibernate3.SpringHibernateWorkflowStore">
+        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="propertySetDelegate" ref="propertySetDelegate" />
+    </bean>
+
+    <osgi:reference id="workflowFactory" interface="com.opensymphony.workflow.loader.WorkflowFactory" />
+    
+    <bean id="osworkflowConfiguration" class="com.opensymphony.workflow.config.SpringConfiguration">
+        <property name="store"><ref local="workflowStore"/></property>
+        <property name="factory"><ref local="workflowFactory"/></property>
+    </bean>
+
+    <!-- Workflow API access point -->
+    <bean id="workflow" class="com.opensymphony.workflow.basic.BasicWorkflow">
+        <constructor-arg value="test" />
+        <property name="configuration" ref="osworkflowConfiguration" />
+    </bean>
+    
+    <!-- Workflow service -->
+    <bean id="workflowService" class="com.opensymphony.workflow.service.impl.OSWorkflowImpl">
+        <property name="workflow" ref="workflow" />
+    </bean>
+    
+    <osgi:service interface="com.opensymphony.workflow.service.WorkflowService" ref="workflowService" />
+
+</beans>
