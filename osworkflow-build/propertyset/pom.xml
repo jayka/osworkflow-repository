@@ -137,7 +137,13 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <Export-Package>com.opensymphony.*;version=${project.version}</Export-Package>
-                        <Import-Package>org.hibernate.*;resolution:=optional,net.sf.hibernate.*;resolution:=optional,javax.ejb;resolution:=optional,
+                        <Import-Package>org.hibernate.*;resolution:=optional,org.hibernate.proxy;resolution:=optional,net.sf.hibernate.*;resolution:=optional,javax.ejb;resolution:=optional,
+                                        javassist;resolution:=optional,javassist.bytecode;resolution:=optional,javassist.bytecode.analysis;resolution:=optional,
+                                        javassist.bytecode.annotation;resolution:=optional,javassist.bytecode.stackmap;resolution:=optional,javassist.compiler;resolution:=optional,
+                                        javassist.compiler.ast;resolution:=optional,javassist.convert;resolution:=optional,javassist.expr;resolution:=optional,
+                                        javassist.runtime;resolution:=optional,javassist.scopedpool;resolution:=optional,javassist.tools;resolution:=optional,
+                                        javassist.tools.reflect;resolution:=optional,javassist.tools.rmi;resolution:=optional,javassist.tools.web;resolution:=optional,
+                                        javassist.util;resolution:=optional,javassist.util.proxy;resolution:=optional,
                                         org.ofbiz.*;resolution:=optional,org.apache.ojb.*;resolution:=optional,javax.persistence.*;resolution:=optional,*</Import-Package>
                     </instructions>
                 </configuration>

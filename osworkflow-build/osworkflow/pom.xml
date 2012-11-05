@@ -272,9 +272,15 @@
                         <Import-Package>bsh.*;resolution:=optional,com.opensymphony.user;resolution:=optional,com.opensymphony.xwork;resolution:=optional,
                                         electric.*;resolution:=optional,javax.ejb;resolution:=optional,
                                         javax.jms;resolution:=optional,net.sf.hibernate.*;resolution:=optional,org.apache.*;resolution:=optional,
-                                        org.codehaus.*;resolution:=optional,org.hibernate.*;resolution:=optional,org.ofbiz.*;resolution:=optional,
-                                        org.prevayler.*;resolution:=optional,org.quartz.*;resolution:=optional,org.springframework.*;resolution:=optional,
-                                        webwork.*;resolution:=optional,*</Import-Package>
+                                        org.codehaus.*;resolution:=optional,org.hibernate.*;resolution:=optional,org.hibernate.proxy;resolution:=optional,
+                                        javassist;resolution:=optional,javassist.bytecode;resolution:=optional,javassist.bytecode.analysis;resolution:=optional,
+                                        javassist.bytecode.annotation;resolution:=optional,javassist.bytecode.stackmap;resolution:=optional,javassist.compiler;resolution:=optional,
+                                        javassist.compiler.ast;resolution:=optional,javassist.convert;resolution:=optional,javassist.expr;resolution:=optional,
+                                        javassist.runtime;resolution:=optional,javassist.scopedpool;resolution:=optional,javassist.tools;resolution:=optional,
+                                        javassist.tools.reflect;resolution:=optional,javassist.tools.rmi;resolution:=optional,javassist.tools.web;resolution:=optional,
+                                        javassist.util;resolution:=optional,javassist.util.proxy;resolution:=optional,
+                                        org.ofbiz.*;resolution:=optional,org.prevayler.*;resolution:=optional,org.quartz.*;resolution:=optional,
+                                        org.springframework.*;resolution:=optional,webwork.*;resolution:=optional,*</Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
