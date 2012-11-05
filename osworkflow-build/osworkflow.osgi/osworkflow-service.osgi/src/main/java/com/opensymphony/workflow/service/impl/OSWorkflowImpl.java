@@ -1,5 +1,6 @@
 package com.opensymphony.workflow.service.impl;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +40,9 @@ public class OSWorkflowImpl implements WorkflowService {
         return inputs;
     }
 
+    @Transactional(readOnly = true)
     public List<String> getWorkflowNames() {
-        return null;
+        return Arrays.asList(workflow.getWorkflowNames());
     }
 
     @SuppressWarnings("rawtypes")
