@@ -24,5 +24,6 @@
         <module>osworkflow-factory.osgi</module>
         <module>osworkflow-datasource.osgi</module>
         <module>osworkflow-service.osgi</module>
+        <module>osworkflow-felixconsole.osgi</module>
     </modules>
 </project>
