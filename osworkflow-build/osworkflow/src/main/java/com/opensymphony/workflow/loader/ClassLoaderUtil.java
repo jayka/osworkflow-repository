@@ -6,7 +6,6 @@ package com.opensymphony.workflow.loader;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.net.URL;
 
 
@@ -76,10 +75,30 @@ public class ClassLoaderUtil {
     }
 
     /**
+     * Load a class with a given name.
+     *
+     * It will try to load the class in the following order:
+     * <ul>
+     *  <li>From Thread.currentThread().getContextClassLoader()
+     *  <li>Using the basic Class.forName()
+     *  <li>From ClassLoaderUtil.class.getClassLoader()
+     *  <li>From the callingClass.getClassLoader()
+     * </ul>
+     *
+     * @param className The name of the class to load
+     * @param callingClass The Class object of the calling object
+     * @throws ClassNotFoundException If the class cannot be found anywhere.
+     */
+     public static Class loadClass(String className, Class callingClass) throws ClassNotFoundException {
+         return loadClass(className, null, callingClass);
+     }
+
+    /**
     * Load a class with a given name.
     *
     * It will try to load the class in the following order:
     * <ul>
+    *  <li>From the provided candidate class loader. If this class loader is <code>null</code>, this step is skipped
     *  <li>From Thread.currentThread().getContextClassLoader()
     *  <li>Using the basic Class.forName()
     *  <li>From ClassLoaderUtil.class.getClassLoader()
@@ -87,20 +106,28 @@ public class ClassLoaderUtil {
     * </ul>
     *
     * @param className The name of the class to load
+    * @param candidateClassLoader A candidate class loader. Can be <code>null</code>.
     * @param callingClass The Class object of the calling object
     * @throws ClassNotFoundException If the class cannot be found anywhere.
     */
-    public static Class loadClass(String className, Class callingClass) throws ClassNotFoundException {
+    public static Class loadClass(String className, ClassLoader candidateClassLoader, Class callingClass) throws ClassNotFoundException {
         try {
-            return Thread.currentThread().getContextClassLoader().loadClass(className);
+            if(candidateClassLoader == null)
+                throw new ClassNotFoundException(); // skip to the next class loader
+
+            return candidateClassLoader.loadClass(className);
         } catch (ClassNotFoundException e) {
             try {
-                return Class.forName(className);
-            } catch (ClassNotFoundException ex) {
+                return Thread.currentThread().getContextClassLoader().loadClass(className);
+            } catch (ClassNotFoundException e2) {
                 try {
-                    return ClassLoaderUtil.class.getClassLoader().loadClass(className);
-                } catch (ClassNotFoundException exc) {
-                    return callingClass.getClassLoader().loadClass(className);
+                    return Class.forName(className);
+                } catch (ClassNotFoundException e3) {
+                    try {
+                        return ClassLoaderUtil.class.getClassLoader().loadClass(className);
+                    } catch (ClassNotFoundException exc) {
+                        return callingClass.getClassLoader().loadClass(className);
+                    }
                 }
             }
         }

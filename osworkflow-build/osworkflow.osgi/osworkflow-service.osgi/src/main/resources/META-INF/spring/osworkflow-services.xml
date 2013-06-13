@@ -33,10 +33,13 @@
         <property name="factory"><ref local="workflowFactory"/></property>
     </bean>
 
+    <osgi:reference id="typeResolver" interface="com.opensymphony.workflow.TypeResolver" />
+
     <!-- Workflow API access point -->
     <bean id="workflow" class="com.opensymphony.workflow.basic.BasicWorkflow">
         <constructor-arg value="test" />
         <property name="configuration" ref="osworkflowConfiguration" />
+        <property name="resolver" ref="typeResolver" />
     </bean>
     
     <!-- Workflow service -->
