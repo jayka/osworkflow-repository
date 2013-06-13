@@ -26,5 +26,6 @@
         <module>osworkflow-service.osgi</module>
         <module>osworkflow-felixconsole.osgi</module>
         <module>osworkflow-testworkflow.osgi</module>
+        <module>osworkflow-typeresolver.osgi</module>
     </modules>
 </project>
