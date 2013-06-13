@@ -7,7 +7,7 @@
         <version>1.0.0</version>
         <relativePath>..</relativePath>
     </parent>
-    <artifactId>oswrokflow-testworkflow.osgi</artifactId>
+    <artifactId>osworkflow-testworkflow.osgi</artifactId>
     <name>Test workflow definition</name>
     <description>Test workflow definition</description>
     <packaging>bundle</packaging>
