@@ -129,7 +129,7 @@ public class OSGiWorkflowFactory implements WorkflowFactory {
             String names[] = new String[workflowDescriptors.size()];
             int i = 0;
             for(String name : workflowDescriptors.keySet())
-                names[i] = name;
+                names[i++] = name;
             return names;
         }
     }
