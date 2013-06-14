@@ -8,7 +8,12 @@
         http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
     <bean id="typeResolver" class="com.opensymphony.workflow.util.osgi.OSGiSpringTypeResolver">
+        <constructor-arg value="true" />
     </bean>
+    
+    <osgi:list id="descriptors" cardinality="0..N" interface="com.opensymphony.workflow.loader.WorkflowDescriptor">
+        <osgi:listener bind-method="bindDescriptor" unbind-method="unbindDescriptor" ref="typeResolver" />
+    </osgi:list>
     
     <osgi:service interface="com.opensymphony.workflow.TypeResolver" ref="typeResolver" />
 

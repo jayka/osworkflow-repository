@@ -4,13 +4,13 @@
  */
 package com.opensymphony.workflow;
 
-import com.opensymphony.workflow.loader.ClassLoaderUtil;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.opensymphony.workflow.loader.ClassLoaderUtil;
 
 
 /**
@@ -26,6 +26,8 @@ public class TypeResolver {
     private static TypeResolver resolver = new TypeResolver();
 
     //~ Instance fields ////////////////////////////////////////////////////////
+
+    protected boolean logClassLoadErrors;
 
     protected Map conditions = new HashMap();
     protected Map functions = new HashMap();
@@ -55,6 +57,8 @@ public class TypeResolver {
         functions.put("jndi", "com.opensymphony.workflow.util.jndi.JNDIFunctionProvider");
         functions.put("beanshell", "com.opensymphony.workflow.util.beanshell.BeanShellFunctionProvider");
         functions.put("bsf", "com.opensymphony.workflow.util.bsf.BSFFunctionProvider");
+
+        logClassLoadErrors = true;
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -124,10 +128,15 @@ public class TypeResolver {
     }
 
     protected Object loadObject(String clazz) {
+        return loadObject(clazz, null, logClassLoadErrors);
+    }
+
+    protected Object loadObject(String clazz, ClassLoader candidateClassLoader, boolean logError) {
         try {
-            return ClassLoaderUtil.loadClass(clazz.trim(), getClass()).newInstance();
+            return ClassLoaderUtil.loadClass(clazz.trim(), candidateClassLoader, getClass()).newInstance();
         } catch (Exception e) {
-            log.error("Could not load class '" + clazz + "'", e);
+            if(logError)
+                log.error("Could not load class '" + clazz + "'", e);
 
             return null;
         }
