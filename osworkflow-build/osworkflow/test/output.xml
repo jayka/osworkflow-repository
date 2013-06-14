@@ -221,7 +221,6 @@
             </conditions>
           </restrict-to>
           <pre-functions>
-Process terminated with exit code -1
             <function type="class">
               <arg name="stepId">2</arg>
               <arg name="class.name">com.opensymphony.workflow.util.MostRecentOwner</arg>

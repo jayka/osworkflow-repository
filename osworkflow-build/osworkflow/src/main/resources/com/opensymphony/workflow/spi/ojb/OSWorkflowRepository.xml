@@ -3,7 +3,7 @@ Put this file in the classpath and modify the repository.xml file to use this fi
 this represents the mapping between OJB classes and osworkflow database on SQLServer,
 but it can be easily adapted to other database servers.
 
-Contributed by Jérôme Picard
+Contributed by Jerome Picard
  -->
 
 <!-- Definitions for OJBWorkflowEntry -->
