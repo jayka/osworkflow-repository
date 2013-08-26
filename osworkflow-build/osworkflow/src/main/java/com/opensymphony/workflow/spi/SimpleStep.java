@@ -5,7 +5,6 @@
 package com.opensymphony.workflow.spi;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
 
@@ -68,6 +67,10 @@ public class SimpleStep implements Step, Serializable {
 
     public String getCaller() {
         return caller;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 
     public Date getDueDate() {
@@ -138,6 +141,7 @@ public class SimpleStep implements Step, Serializable {
         return stepId;
     }
 
+    @Override
     public String toString() {
         return "SimpleStep@" + stepId + "[owner=" + owner + ", actionId=" + actionId + ", status=" + status + "]";
     }
