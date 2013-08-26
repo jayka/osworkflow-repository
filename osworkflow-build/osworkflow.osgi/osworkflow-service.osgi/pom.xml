@@ -21,22 +21,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-                        <Import-Package>org.hibernate,org.hibernate.action,org.hibernate.bytecode,org.hibernate.bytecode.buildtime,org.hibernate.bytecode.cglib,org.hibernate.bytecode.javassist,
-                                        org.hibernate.bytecode.util,org.hibernate.cache,org.hibernate.cache.access,org.hibernate.cache.entry,org.hibernate.cache.impl,org.hibernate.cache.impl.bridge,
-                                        org.hibernate.cfg,org.hibernate.classic,org.hibernate.collection,org.hibernate.connection,org.hibernate.context,org.hibernate.criterion,org.hibernate.dialect,
-                                        org.hibernate.dialect.function,org.hibernate.dialect.lock,org.hibernate.dialect.resolver,org.hibernate.engine,org.hibernate.engine.jdbc,
-                                        org.hibernate.engine.loading,org.hibernate.engine.profile,org.hibernate.engine.query,org.hibernate.engine.query.sql,org.hibernate.engine.transaction,
-                                        org.hibernate.event,org.hibernate.event.def,org.hibernate.exception,org.hibernate.hql,org.hibernate.hql.antlr,org.hibernate.hql.ast,org.hibernate.hql.ast.exec,
-                                        org.hibernate.hql.ast.tree,org.hibernate.hql.ast.util,org.hibernate.hql.classic,org.hibernate.id,org.hibernate.id.enhanced,org.hibernate.id.factory,
-                                        org.hibernate.id.insert,org.hibernate.impl,org.hibernate.intercept,org.hibernate.intercept.cglib,org.hibernate.intercept.javassist,org.hibernate.jdbc,
-                                        org.hibernate.jdbc.util,org.hibernate.loader,org.hibernate.loader.collection,org.hibernate.loader.criteria,org.hibernate.loader.custom,
-                                        org.hibernate.loader.custom.sql,org.hibernate.loader.entity,org.hibernate.loader.hql,org.hibernate.lob,org.hibernate.mapping,org.hibernate.metadata,
-                                        org.hibernate.param,org.hibernate.persister,org.hibernate.persister.collection,org.hibernate.persister.entity,org.hibernate.pretty,org.hibernate.property,
-                                        org.hibernate.proxy,org.hibernate.proxy.dom4j,org.hibernate.proxy.map,org.hibernate.proxy.pojo,org.hibernate.proxy.pojo.cglib,org.hibernate.proxy.pojo.javassist,
-                                        org.hibernate.secure,org.hibernate.sql,org.hibernate.sql.ordering.antlr,org.hibernate.stat,org.hibernate.tool.hbm2ddl,org.hibernate.tool.instrument,
-                                        org.hibernate.tool.instrument.cglib,org.hibernate.tool.instrument.javassist,org.hibernate.transaction,org.hibernate.transform,org.hibernate.tuple,
-                                        org.hibernate.tuple.component,org.hibernate.tuple.entity,org.hibernate.type,org.hibernate.usertype,org.hibernate.util,org.hibernate.util.xml,
-                                        com.opensymphony.ejb,com.opensymphony.module.propertyset,com.opensymphony.module.propertyset.aggregate,
+                        <Import-Package>com.opensymphony.ejb,com.opensymphony.module.propertyset,com.opensymphony.module.propertyset.aggregate,
                                         com.opensymphony.module.propertyset.cached,com.opensymphony.module.propertyset.config,com.opensymphony.module.propertyset.database,
                                         com.opensymphony.module.propertyset.ejb3,com.opensymphony.module.propertyset.file,com.opensymphony.module.propertyset.hibernate,
                                         com.opensymphony.module.propertyset.hibernate3,com.opensymphony.module.propertyset.javabeans,com.opensymphony.module.propertyset.map,
@@ -50,20 +35,7 @@
                                         com.opensymphony.workflow.spi.ojb,com.opensymphony.workflow.spi.prevayler,com.opensymphony.workflow.timer,
                                         com.opensymphony.workflow.util,com.opensymphony.workflow.util.beanshell,com.opensymphony.workflow.util.bsf,
                                         com.opensymphony.workflow.util.caller,com.opensymphony.workflow.util.ejb.local,com.opensymphony.workflow.util.ejb.remote,
-                                        com.opensymphony.workflow.util.jndi,
-                                        org.springframework.dao,org.springframework.dao.annotation,org.springframework.dao.support,
-                                        org.springframework.jca.cci,org.springframework.jca.cci.connection,org.springframework.jca.cci.core,
-                                        org.springframework.jca.cci.core.support,org.springframework.jca.cci.object,
-                                        org.springframework.jca.context,org.springframework.jca.endpoint,org.springframework.jca.support,
-                                        org.springframework.jca.work,org.springframework.jca.work.glassfish,org.springframework.jca.work.jboss,
-                                        org.springframework.transaction,org.springframework.transaction.annotation,org.springframework.transaction.config,
-                                        org.springframework.transaction.interceptor,org.springframework.transaction.jta,org.springframework.transaction.support,
-                                        org.springframework.aop,org.springframework.aop.aspectj,org.springframework.aop.aspectj.annotation,org.springframework.aop.aspectj.autoproxy,
-                                        org.springframework.aop.config,org.springframework.aop.framework,org.springframework.aop.framework.adapter,org.springframework.aop.framework.autoproxy,
-                                        org.springframework.aop.framework.autoproxy.target,org.springframework.aop.interceptor,org.springframework.aop.scope,org.springframework.aop.support,
-                                        org.springframework.aop.support.annotation,org.springframework.aop.target,org.springframework.aop.target.dynamic,
-                                        org.aopalliance.aop,org.aopalliance.intercept,
-                                        javax.transaction;version="1.1",*</Import-Package>
+                                        com.opensymphony.workflow.util.jndi,*</Import-Package>
                     </instructions>
                 </configuration>
             </plugin>

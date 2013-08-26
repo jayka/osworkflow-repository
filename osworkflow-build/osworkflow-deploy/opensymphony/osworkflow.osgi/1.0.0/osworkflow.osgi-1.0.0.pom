@@ -29,12 +29,4 @@
         <module>osworkflow-typeresolver.osgi</module>
         <module>osworkflow-service-hibernate.osgi</module>
     </modules>
-    
-    <distributionManagement>
-        <repository>
-            <id>local-deploy</id>
-            <name>local-deploy</name>
-            <url>file:../../osworkflow-deploy</url>
-        </repository>
-    </distributionManagement>
 </project>
