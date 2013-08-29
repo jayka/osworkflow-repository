@@ -13,6 +13,8 @@ package com.opensymphony.module.propertyset;
  * @version $Revision: 146 $
  */
 public class InvalidPropertyTypeException extends PropertyException {
+    private static final long serialVersionUID = 3804721459594221359L;
+
     //~ Constructors ///////////////////////////////////////////////////////////
 
     public InvalidPropertyTypeException() {
@@ -21,5 +23,13 @@ public class InvalidPropertyTypeException extends PropertyException {
 
     public InvalidPropertyTypeException(String msg) {
         super(msg);
+    }
+
+    public InvalidPropertyTypeException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public InvalidPropertyTypeException(Throwable cause) {
+        super(cause);
     }
 }

@@ -15,6 +15,8 @@ package com.opensymphony.module.propertyset;
  * @version $Revision: 146 $
  */
 public class IllegalPropertyException extends PropertyException {
+    private static final long serialVersionUID = -5463301480520830642L;
+
     //~ Constructors ///////////////////////////////////////////////////////////
 
     public IllegalPropertyException() {
@@ -23,5 +25,13 @@ public class IllegalPropertyException extends PropertyException {
 
     public IllegalPropertyException(String msg) {
         super(msg);
+    }
+
+    public IllegalPropertyException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public IllegalPropertyException(Throwable cause) {
+        super(cause);
     }
 }

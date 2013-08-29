@@ -17,9 +17,8 @@ package com.opensymphony.module.propertyset;
  * @version $Revision: 146 $
  */
 public class PropertyImplementationException extends PropertyException {
+    private static final long serialVersionUID = -6244745861818118797L;
     //~ Instance fields ////////////////////////////////////////////////////////
-
-    protected Throwable original;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
@@ -27,17 +26,16 @@ public class PropertyImplementationException extends PropertyException {
         super();
     }
 
+    public PropertyImplementationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     public PropertyImplementationException(String msg) {
         super(msg);
     }
 
-    public PropertyImplementationException(String msg, Throwable original) {
-        super(msg);
-        this.original = original;
-    }
-
-    public PropertyImplementationException(Throwable original) {
-        this(original.getLocalizedMessage(), original);
+    public PropertyImplementationException(Throwable cause) {
+        super(cause);
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -46,6 +44,6 @@ public class PropertyImplementationException extends PropertyException {
      * Retrieve original Exception.
      */
     public Throwable getRootCause() {
-        return original;
+        return getCause();
     }
 }

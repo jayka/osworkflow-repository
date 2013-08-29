@@ -14,6 +14,8 @@ package com.opensymphony.module.propertyset;
 public class PropertyException extends RuntimeException {
     //~ Constructors ///////////////////////////////////////////////////////////
 
+    private static final long serialVersionUID = 3346921495358285461L;
+
     public PropertyException() {
         super();
     }
@@ -21,4 +23,13 @@ public class PropertyException extends RuntimeException {
     public PropertyException(String msg) {
         super(msg);
     }
+
+    public PropertyException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public PropertyException(Throwable cause) {
+        super(cause);
+    }
+
 }

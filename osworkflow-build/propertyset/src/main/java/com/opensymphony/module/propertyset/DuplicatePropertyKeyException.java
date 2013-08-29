@@ -13,6 +13,8 @@ package com.opensymphony.module.propertyset;
  * @version $Revision: 146 $
  */
 public class DuplicatePropertyKeyException extends PropertyException {
+    private static final long serialVersionUID = 2646530582187607548L;
+
     //~ Constructors ///////////////////////////////////////////////////////////
 
     public DuplicatePropertyKeyException() {
@@ -22,4 +24,13 @@ public class DuplicatePropertyKeyException extends PropertyException {
     public DuplicatePropertyKeyException(String msg) {
         super(msg);
     }
+
+    public DuplicatePropertyKeyException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public DuplicatePropertyKeyException(Throwable cause) {
+        super(cause);
+    }
+
 }
