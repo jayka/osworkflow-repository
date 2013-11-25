@@ -90,6 +90,12 @@ public class OSWorkflowImpl implements WorkflowService {
 
         WorkflowDescriptor descriptor = workflow.getWorkflowDescriptor(workflowName);
 
+        for(StepDescriptor step : (List<StepDescriptor>)descriptor.getSteps()) {
+            StepDescriptorBean stDescriptor = new StepDescriptorBean(step.getId(), step.getName(), null, null, step.getMetaAttributes());
+
+            wfDescriptor.addStep(stDescriptor);
+        }
+
         Set<Map.Entry> metaEntrySet = descriptor.getMetaAttributes().entrySet();
         for (Map.Entry entry : metaEntrySet) {
             wfDescriptor.addMeta((String) entry.getKey(), (String) entry.getValue());
@@ -101,10 +107,10 @@ public class OSWorkflowImpl implements WorkflowService {
             StepDescriptorBean stDescriptor = new StepDescriptorBean(step.getStepId(), stepDescriptor.getName(), step.getOwner(),
                                                                      step.getStatus(), stepDescriptor.getMetaAttributes());
 
-            metaEntrySet = stepDescriptor.getMetaAttributes().entrySet();
-            for (Map.Entry entry : metaEntrySet) {
-                stDescriptor.addMeta((String) entry.getKey(), (String) entry.getValue());
-            }
+//            metaEntrySet = stepDescriptor.getMetaAttributes().entrySet();
+//            for (Map.Entry entry : metaEntrySet) {
+//                stDescriptor.addMeta((String) entry.getKey(), (String) entry.getValue());
+//            }
 
             wfDescriptor.addCurrentStep(stDescriptor);
         }

@@ -8,6 +8,7 @@ public class WorkflowDescriptorBean extends MetaInfoWorkflowBean {
 
     private Long workflowId;
     private String name;
+    private List<StepDescriptorBean> allSteps;
     private List<StepDescriptorBean> currentSteps;
     private List<ActionDescriptorBean> availableActions;
     private List<ActionDescriptorBean> availableActionsForMenu;
@@ -17,6 +18,7 @@ public class WorkflowDescriptorBean extends MetaInfoWorkflowBean {
         this.workflowId = workflowId;
 
         availableActions = new LinkedList<ActionDescriptorBean>();
+        allSteps = new LinkedList<StepDescriptorBean>();
         currentSteps = new LinkedList<StepDescriptorBean>();
 
     }
@@ -39,6 +41,14 @@ public class WorkflowDescriptorBean extends MetaInfoWorkflowBean {
             }
         }
         return availableActionsForMenu;
+    }
+
+    public List<StepDescriptorBean> getAllSteps() {
+        return Collections.unmodifiableList(allSteps);
+    }
+
+    public void addStep(StepDescriptorBean step) {
+        allSteps.add(step);
     }
 
     public List<StepDescriptorBean> getCurrentSteps() {
