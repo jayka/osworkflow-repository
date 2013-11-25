@@ -27,11 +27,13 @@ public class DescribeOSWorkflowCommand extends GenericOSWorkflowCommand {
                 return;
             }
 
+            boolean listAllSteps = commandLine.hasNext() ? commandLine.nextBoolean() : false;
+
             WorkflowDescriptorBean descriptor = workflowService.describeWorkflow(workflowID, user, null);
             out.format("Workflow %d: %s%n", descriptor.getWorkflowId(), descriptor.getName());
             printMetadata(out, descriptor.getMeta(), "");
 
-            out.println("STEPS:");
+            out.println("CURRENT STEPS:");
             for(StepDescriptorBean step : descriptor.getCurrentSteps()) {
                 out.format("  %- 2d: %s (%s) owned by %s%n", step.getStepId(), step.getName(), step.getStatus(),
                            step.getOwner().trim().isEmpty() ? "<no owner>" : step.getOwner());
@@ -42,6 +44,15 @@ public class DescribeOSWorkflowCommand extends GenericOSWorkflowCommand {
             for(ActionDescriptorBean action : descriptor.getAvailableActions()) {
                 out.format("  %- 2d: %s%n", action.getActionId(), action.getName());
                 printMetadata(out, action.getMeta(), "  ");
+            }
+
+            if(listAllSteps) {
+                out.println("------------------------");
+                out.println("ALL STEPS:");
+                for(StepDescriptorBean step : descriptor.getAllSteps()) {
+                    out.format("  %- 2d: %s %n", step.getStepId(), step.getName());
+                    printMetadata(out, step.getMeta(), "  ");
+                }
             }
 
             out.flush();
