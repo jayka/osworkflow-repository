@@ -1,5 +1,6 @@
 package com.opensymphony.workflow.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -91,7 +92,12 @@ public class OSWorkflowImpl implements WorkflowService {
         WorkflowDescriptor descriptor = workflow.getWorkflowDescriptor(workflowName);
 
         for(StepDescriptor step : (List<StepDescriptor>)descriptor.getSteps()) {
-            StepDescriptorBean stDescriptor = new StepDescriptorBean(step.getId(), step.getName(), null, null, step.getMetaAttributes());
+            List<ActionDescriptor> actions = step.getActions();
+            List<ActionDescriptorBean> stepActions = new ArrayList<ActionDescriptorBean>(actions.size());
+            for(ActionDescriptor action : actions)
+                stepActions.add(new ActionDescriptorBean(action.getId(), action.getName(), action.getUnconditionalResult().getStep()));
+
+            StepDescriptorBean stDescriptor = new StepDescriptorBean(step.getId(), step.getName(), null, null, stepActions, step.getMetaAttributes());
 
             wfDescriptor.addStep(stDescriptor);
         }
@@ -105,7 +111,7 @@ public class OSWorkflowImpl implements WorkflowService {
         for (Step step : steps) {
             StepDescriptor stepDescriptor = descriptor.getStep(step.getStepId());
             StepDescriptorBean stDescriptor = new StepDescriptorBean(step.getStepId(), stepDescriptor.getName(), step.getOwner(),
-                                                                     step.getStatus(), stepDescriptor.getMetaAttributes());
+                                                                     step.getStatus(), null, stepDescriptor.getMetaAttributes());
 
 //            metaEntrySet = stepDescriptor.getMetaAttributes().entrySet();
 //            for (Map.Entry entry : metaEntrySet) {
@@ -118,7 +124,7 @@ public class OSWorkflowImpl implements WorkflowService {
         int[] actions = workflow.getAvailableActions(workflowId, insertCallerInMap(caller, inputs));
         for (int action : actions) {
             ActionDescriptor actionDescriptor = descriptor.getAction(action);
-            ActionDescriptorBean actDescriptor = new ActionDescriptorBean(action, actionDescriptor.getName());
+            ActionDescriptorBean actDescriptor = new ActionDescriptorBean(action, actionDescriptor.getName(), null);
 
             metaEntrySet = actionDescriptor.getMetaAttributes().entrySet();
             for (Map.Entry entry : metaEntrySet) {

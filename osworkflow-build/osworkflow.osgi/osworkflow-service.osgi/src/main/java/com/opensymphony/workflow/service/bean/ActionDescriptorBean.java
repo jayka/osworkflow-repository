@@ -4,10 +4,12 @@ public class ActionDescriptorBean extends MetaInfoWorkflowBean {
 
     private int actionId;
     private String name;
+    private Integer unconditionalTargetStep;
 
-    public ActionDescriptorBean(int actionId, String name) {
+    public ActionDescriptorBean(int actionId, String name, Integer unconditionalTargetStep) {
         this.actionId = actionId;
         this.name = name;
+        this.unconditionalTargetStep = unconditionalTargetStep;
     }
 
     public int getActionId() {
@@ -17,4 +19,9 @@ public class ActionDescriptorBean extends MetaInfoWorkflowBean {
     public String getName() {
         return name;
     }
+
+    public Integer getUnconditionalTargetStep() {
+        return unconditionalTargetStep;
+    }
+
 }
