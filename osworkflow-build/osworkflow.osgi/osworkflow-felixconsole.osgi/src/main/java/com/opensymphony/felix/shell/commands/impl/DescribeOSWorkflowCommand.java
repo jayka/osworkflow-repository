@@ -52,6 +52,12 @@ public class DescribeOSWorkflowCommand extends GenericOSWorkflowCommand {
                 for(StepDescriptorBean step : descriptor.getAllSteps()) {
                     out.format("  %- 2d: %s %n", step.getStepId(), step.getName());
                     printMetadata(out, step.getMeta(), "  ");
+                    out.println();
+                    out.println("  ACTIONS:");
+                    for(ActionDescriptorBean action : step.getActions()) {
+                        out.format("    %- 2d: %s -> %2d%n", action.getActionId(), action.getName(), action.getUnconditionalTargetStep());
+                        printMetadata(out, action.getMeta(), "    ");
+                    }
                 }
             }
 
