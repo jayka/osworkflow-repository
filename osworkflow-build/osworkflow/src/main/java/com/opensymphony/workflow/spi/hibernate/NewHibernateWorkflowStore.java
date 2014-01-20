@@ -7,8 +7,8 @@ package com.opensymphony.workflow.spi.hibernate;
 import com.opensymphony.workflow.StoreException;
 import com.opensymphony.workflow.util.PropertySetDelegate;
 
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
 import java.util.Map;
 

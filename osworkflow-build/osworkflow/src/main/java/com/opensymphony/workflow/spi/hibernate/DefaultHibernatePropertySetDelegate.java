@@ -1,22 +1,9 @@
-/*
- * Copyright (c) 2002-2003 by OpenSymphony
- * All rights reserved.
- */
-/*
- * Created on 20-ott-2005
- *
- * To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
 package com.opensymphony.workflow.spi.hibernate;
 
-import com.opensymphony.module.propertyset.PropertySet;
-import com.opensymphony.module.propertyset.PropertySetManager;
-import com.opensymphony.module.propertyset.hibernate.DefaultHibernateConfigurationProvider;
-
+import com.opensymphony.module.propertyset.*;
+import com.opensymphony.module.propertyset.hibernate3.DefaultHibernateConfigurationProvider;
 import com.opensymphony.workflow.util.PropertySetDelegate;
-
-import net.sf.hibernate.SessionFactory;
+import org.hibernate.SessionFactory;
 
 import java.util.HashMap;
 
@@ -50,7 +37,7 @@ public class DefaultHibernatePropertySetDelegate implements PropertySetDelegate 
 
         args.put("configurationProvider", configurationProvider);
 
-        return PropertySetManager.getInstance("hibernate", args);
+        return PropertySetManager.getInstance("hibernate3", args);
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

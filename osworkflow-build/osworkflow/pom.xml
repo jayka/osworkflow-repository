@@ -11,7 +11,7 @@
     <packaging>bundle</packaging>
     <name>osworkflow</name>
     <description>OpenSymphony OSWorkfow</description>
-    <repositories>
+     <repositories>
         <repository>
             <id>OpenSymphony mirror repository</id>
             <name>OpenSymphony mirror repository</name>
@@ -37,33 +37,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>2.1.8</version>
-            <type>jar</type>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>spring</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>1.0.2</version>
-            <type>jar</type>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>3.0.5.RELEASE</version>
-            <type>jar</type>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>spring</groupId>
-            <artifactId>spring-dao</artifactId>
-            <version>1.0.2</version>
+            <version>3.2.3.RELEASE</version>
             <type>jar</type>
             <scope>provided</scope>
             <optional>true</optional>
@@ -79,7 +55,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>3.0.5.RELEASE</version>
+            <version>3.2.3.RELEASE</version>
             <type>jar</type>
             <scope>provided</scope>
             <optional>true</optional>
@@ -173,8 +149,16 @@
         </dependency>
         <dependency>
             <groupId>org.prevayler</groupId>
-            <artifactId>prevayler</artifactId>
-            <version>2.0.001-alpha</version>
+            <artifactId>prevayler-core</artifactId>
+            <version>2.6</version>
+            <type>jar</type>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.prevayler</groupId>
+            <artifactId>prevayler-factory</artifactId>
+            <version>2.6</version>
             <type>jar</type>
             <scope>provided</scope>
             <optional>true</optional>
@@ -252,7 +236,7 @@
         <dependency>
         	<groupId>org.hibernate</groupId>
         	<artifactId>hibernate-core</artifactId>
-        	<version>3.3.0.GA</version>
+        	<version>4.1.6.Final</version>
         	<type>jar</type>
         	<scope>provided</scope>
         	<optional>true</optional>

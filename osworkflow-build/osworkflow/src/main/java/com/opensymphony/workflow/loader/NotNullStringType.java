@@ -10,7 +10,8 @@
  */
 package com.opensymphony.workflow.loader;
 
-import net.sf.hibernate.type.StringType;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.type.StringType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,15 +33,15 @@ public class NotNullStringType extends StringType {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public Object get(ResultSet rs, String name) throws SQLException {
-        return "!void!".equals(super.get(rs, name)) ? "" : super.get(rs, name);
+    public Object get(ResultSet rs, String name, SessionImplementor session) throws SQLException {
+        return "!void!".equals(super.get(rs, name, session)) ? "" : super.get(rs, name, session);
     }
 
-    public void set(PreparedStatement st, Object value, int index) throws SQLException {
+    public void set(PreparedStatement st, String value, int index, SessionImplementor session) throws SQLException {
         if (!"".equals(value)) {
-            super.set(st, value, index);
+            super.set(st, (String)value, index, session);
         } else {
-            super.set(st, "!void!", index);
+            super.set(st, "!void!", index, session);
         }
     }
 }

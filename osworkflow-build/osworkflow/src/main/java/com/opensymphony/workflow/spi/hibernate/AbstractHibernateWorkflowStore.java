@@ -9,14 +9,16 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.expression.Criterion;
-import net.sf.hibernate.expression.Expression;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Expression;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.QueryNotSupportedException;
@@ -27,6 +29,7 @@ import com.opensymphony.workflow.query.WorkflowExpressionQuery;
 import com.opensymphony.workflow.query.WorkflowQuery;
 import com.opensymphony.workflow.spi.Step;
 import com.opensymphony.workflow.spi.WorkflowEntry;
+import com.opensymphony.workflow.spi.WorkflowNameAndStep;
 import com.opensymphony.workflow.spi.WorkflowStore;
 import com.opensymphony.workflow.util.PropertySetDelegate;
 
@@ -253,10 +256,6 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
                     return new ArrayList(results);
                 }
             });
-    }
-
-    public List getWorkflowsByNamesAndSteps(Set nameAndSteps) throws StoreException {
-        throw new UnsupportedOperationException("Hibernate2 stores does not support retrieval by names and steps");
     }
 
     // Companion method of InternalCallback class
@@ -506,4 +505,37 @@ public abstract class AbstractHibernateWorkflowStore implements WorkflowStore {
     protected interface InternalCallback {
         public Object doInHibernate(Session session) throws HibernateException, StoreException;
     }
+
+    public List getWorkflowsByNamesAndSteps(final Set nameAndSteps) throws StoreException {
+        if(nameAndSteps.isEmpty())
+            return new LinkedList();
+
+        return (List)execute(new InternalCallback() {
+
+            public Object doInHibernate(Session session) throws HibernateException, StoreException {
+                StringBuilder queryStr = new StringBuilder();
+                queryStr.append("SELECT DISTINCT entry.id ").
+                         append("FROM HibernateWorkflowEntry AS entry INNER JOIN entry.currentSteps AS step ").
+                         append("WHERE ");
+                for(int i = 0, l = nameAndSteps.size(); i < l; i++) {
+                    if(i != 0)
+                        queryStr.append(" OR ");
+                    queryStr.append(String.format("(entry.workflowName = :workflowName%d AND step.stepId = :stepId%d)", i, i));
+                }
+                queryStr.append(" ORDER BY entry.id");
+
+                Query query = session.createQuery(queryStr.toString());
+                int i = 0;
+                for(Iterator it = nameAndSteps.iterator(); it.hasNext();) {
+                    WorkflowNameAndStep stepInfo = (WorkflowNameAndStep)it.next();
+                    query.setParameter("workflowName" + i, stepInfo.getWorkflowName());
+                    query.setParameter("stepId" + i, stepInfo.getStepId());
+                    i++;
+                }
+
+                return query.list();
+            }
+        });
+    }
+
 }
